@@ -1,0 +1,416 @@
+{
+  "meta": {
+    "nom": "Base de contenus Chevet · Immunologie DFGSM2 (démonstration)",
+    "version": "2026-11-24",
+    "avertissement": "Contenus fictifs rédigés par ceepia pour illustrer le fonctionnement de l'outil. Ils n'ont pas été validés par l'équipe enseignante de l'UFR de Médecine. Numéros de pages et de sections inventés.",
+    "en_production": "La base est alimentée uniquement par les contenus de la faculté (Moodle ou dépôt direct), hébergée dans l'environnement choisi par la faculté, et chaque question est relue par un enseignant avant d'être proposée aux étudiants."
+  },
+  "chapitres": [
+    {"id": "c1", "partie": 1, "numero": 1, "titre": "Organisation du système immunitaire"},
+    {"id": "c2", "partie": 1, "numero": 2, "titre": "Immunité innée"},
+    {"id": "c3", "partie": 1, "numero": 3, "titre": "CMH et présentation de l'antigène"},
+    {"id": "c4", "partie": 1, "numero": 4, "titre": "Lymphocytes T"},
+    {"id": "c5", "partie": 1, "numero": 5, "titre": "Lymphocytes B et immunoglobulines"},
+    {"id": "c6", "partie": 1, "numero": 6, "titre": "Tolérance et régulation"},
+    {"id": "c7", "partie": 2, "numero": 7, "titre": "Réponse anti-infectieuse et déficits immunitaires"},
+    {"id": "c8", "partie": 2, "numero": 8, "titre": "Immunité anti-tumorale et immunothérapies"},
+    {"id": "c9", "partie": 2, "numero": 9, "titre": "Hypersensibilités"},
+    {"id": "c10", "partie": 2, "numero": 10, "titre": "Vaccination"}
+  ],
+  "notions": [
+    {"id": "n1", "chapitre": "c1", "libelle": "Organes lymphoïdes", "maitrise_demo": 0.82},
+    {"id": "n2", "chapitre": "c2", "libelle": "Récepteurs Toll-like", "maitrise_demo": 0.74},
+    {"id": "n3", "chapitre": "c2", "libelle": "Complément", "maitrise_demo": 0.68},
+    {"id": "n12", "chapitre": "c2", "libelle": "Cellules NK", "maitrise_demo": 0.66},
+    {"id": "n4", "chapitre": "c3", "libelle": "CMH de classe I", "maitrise_demo": 0.55},
+    {"id": "n5", "chapitre": "c3", "libelle": "CMH de classe II", "maitrise_demo": 0.38},
+    {"id": "n13", "chapitre": "c3", "libelle": "Présentation croisée", "maitrise_demo": 0.5},
+    {"id": "n6", "chapitre": "c4", "libelle": "Sélection thymique", "maitrise_demo": 0.49},
+    {"id": "n7", "chapitre": "c4", "libelle": "Activation du LT naïf", "maitrise_demo": 0.71},
+    {"id": "n8", "chapitre": "c5", "libelle": "Classes d'immunoglobulines", "maitrise_demo": 0.8},
+    {"id": "n9", "chapitre": "c5", "libelle": "Commutation, maturation d'affinité", "maitrise_demo": 0.58},
+    {"id": "n11", "chapitre": "c6", "libelle": "Tolérance périphérique", "maitrise_demo": 0.6},
+    {"id": "n10", "chapitre": "c6", "libelle": "T régulateurs", "maitrise_demo": 0.63}
+  ],
+  "referentiel": [
+    {"section": "1.2", "chapitre": "c1", "titre": "Organes lymphoïdes primaires et secondaires", "page": 9, "passages": [
+      "Les organes lymphoïdes primaires sont la moelle osseuse et le thymus : les lymphocytes s'y développent et y acquièrent leur récepteur à l'antigène.",
+      "Les lymphocytes B achèvent leur maturation dans la moelle osseuse, les lymphocytes T dans le thymus.",
+      "Les organes lymphoïdes secondaires (ganglions lymphatiques, rate, tissus lymphoïdes associés aux muqueuses) sont les lieux de rencontre entre les lymphocytes naïfs et l'antigène.",
+      "Les ganglions drainent la lymphe ; la rate filtre les antigènes présents dans le sang.",
+      "Les lymphocytes naïfs entrent dans le ganglion depuis le sang par les veinules à endothélium épais (HEV), grâce notamment à la L-sélectine et au récepteur CCR7."
+    ]},
+    {"section": "2.1", "chapitre": "c2", "titre": "Récepteurs Toll-like", "page": 31, "passages": [
+      "Les récepteurs de reconnaissance de motifs, dont les TLR, sont codés dans la lignée germinale : leur diversité ne résulte pas d'un réarrangement somatique.",
+      "TLR4 reconnaît le lipopolysaccharide (LPS) des bactéries à Gram négatif.",
+      "TLR5 reconnaît la flagelline.",
+      "TLR3, TLR7, TLR8 et TLR9 sont situés dans les endosomes et reconnaissent des acides nucléiques : ARN double brin pour TLR3, ARN simple brin pour TLR7 et TLR8, ADN riche en motifs CpG non méthylés pour TLR9.",
+      "TLR1, TLR2, TLR4, TLR5 et TLR6 sont exprimés à la membrane plasmique."
+    ]},
+    {"section": "2.3", "chapitre": "c2", "titre": "Cellules NK", "page": 38, "passages": [
+      "Les cellules NK appartiennent à l'immunité innée et n'expriment pas de TCR réarrangé.",
+      "Elles lysent les cellules qui ont perdu l'expression du CMH de classe I (reconnaissance du « soi manquant »).",
+      "Par CD16 (FcγRIII), elles réalisent une cytotoxicité cellulaire dépendante des anticorps (ADCC).",
+      "Elles produisent de l'interféron γ."
+    ]},
+    {"section": "2.4", "chapitre": "c2", "titre": "Système du complément", "page": 42, "passages": [
+      "La voie classique est initiée par la fixation de C1q sur des anticorps liés à leur antigène (complexes immuns).",
+      "La voie alterne s'active spontanément à la surface des micro-organismes, sans anticorps ; la voie des lectines est initiée par la MBL.",
+      "Les trois voies convergent vers la formation d'une C3 convertase.",
+      "C3b est une opsonine : il facilite la phagocytose.",
+      "C3a et C5a sont des anaphylatoxines.",
+      "C5b, C6, C7, C8 et C9 forment le complexe d'attaque membranaire."
+    ]},
+    {"section": "3.2", "chapitre": "c3", "titre": "Molécules du CMH de classe I", "page": 58, "passages": [
+      "Les molécules du CMH de classe I sont exprimées par la quasi-totalité des cellules nucléées.",
+      "Elles associent une chaîne lourde α à la β2-microglobuline.",
+      "Elles présentent surtout des peptides d'origine intracellulaire (cytosolique), issus de la dégradation des protéines par le protéasome.",
+      "Ces peptides, importés par le transporteur TAP, sont chargés dans le réticulum endoplasmique ; ils mesurent typiquement 8 à 10 acides aminés.",
+      "Les complexes CMH I-peptide sont reconnus par les lymphocytes T CD8+ ; le corécepteur CD8 se lie au domaine α3."
+    ]},
+    {"section": "3.3", "chapitre": "c3", "titre": "Molécules du CMH de classe II", "page": 63, "passages": [
+      "Les molécules du CMH de classe II sont exprimées de façon constitutive par les cellules présentatrices professionnelles : cellules dendritiques, macrophages et lymphocytes B.",
+      "Lors de leur synthèse dans le réticulum endoplasmique, la chaîne invariante occupe le sillon et empêche la fixation des peptides présents à cet endroit.",
+      "Dans le compartiment endosomal, la chaîne invariante est dégradée ; il reste le fragment CLIP, que HLA-DM échange contre un peptide.",
+      "Les peptides présentés proviennent de protéines endocytées et mesurent typiquement 13 à 25 acides aminés.",
+      "Les complexes CMH II-peptide sont reconnus par les lymphocytes T CD4+ ; le corécepteur CD4 se lie au CMH de classe II."
+    ]},
+    {"section": "3.4", "chapitre": "c3", "titre": "Présentation croisée", "page": 67, "passages": [
+      "Certaines cellules dendritiques peuvent présenter des antigènes exogènes sur le CMH de classe I : c'est la présentation croisée.",
+      "Elle permet d'initier des réponses T CD8+ contre des virus qui n'infectent pas les cellules dendritiques, et contre les tumeurs.",
+      "Elle ne fait pas intervenir la chaîne invariante, propre à la voie du CMH de classe II."
+    ]},
+    {"section": "4.1", "chapitre": "c4", "titre": "Sélection thymique", "page": 77, "passages": [
+      "La sélection positive a lieu principalement dans le cortex thymique : elle retient les thymocytes dont le TCR reconnaît le CMH du soi avec une affinité faible à modérée.",
+      "La sélection négative a lieu principalement dans la médullaire : elle élimine les thymocytes qui reconnaissent trop fortement des antigènes du soi.",
+      "Le facteur AIRE permet aux cellules épithéliales médullaires d'exprimer des antigènes tissulaires ; son déficit est responsable du syndrome APECED.",
+      "La grande majorité des thymocytes (plus de 95 %) meurt au cours de la maturation."
+    ]},
+    {"section": "4.3", "chapitre": "c4", "titre": "Activation du lymphocyte T naïf", "page": 86, "passages": [
+      "L'activation d'un lymphocyte T naïf nécessite la reconnaissance du complexe CMH-peptide par le TCR (signal 1).",
+      "Un signal de costimulation est nécessaire (signal 2) : CD28, porté par le lymphocyte T, se lie à CD80/CD86 de la cellule présentatrice.",
+      "Un signal 1 sans costimulation peut induire une anergie.",
+      "L'IL-2, produite après activation, favorise la prolifération et l'expansion clonale.",
+      "CTLA-4, exprimé après activation et par les T régulateurs, lie CD80/CD86 avec une plus forte affinité que CD28 : c'est un récepteur inhibiteur."
+    ]},
+    {"section": "5.2", "chapitre": "c5", "titre": "Classes d'immunoglobulines", "page": 104, "passages": [
+      "Les IgG sont les seules immunoglobulines à franchir le placenta, grâce au récepteur FcRn.",
+      "L'IgM sécrétée est un pentamère ; c'est la première classe produite lors d'une réponse primaire, et elle active efficacement la voie classique du complément.",
+      "L'IgA sécrétoire est un dimère associé à la pièce sécrétoire.",
+      "Les IgE se fixent sur les mastocytes et les basophiles par le récepteur FcεRI.",
+      "La commutation isotypique change la région constante de la chaîne lourde sans modifier la spécificité antigénique."
+    ]},
+    {"section": "5.4", "chapitre": "c5", "titre": "Commutation isotypique et maturation d'affinité", "page": 112, "passages": [
+      "Les recombinaisons V(D)J ont lieu au cours du développement des lymphocytes B, dans la moelle osseuse.",
+      "Dans les centres germinatifs des organes lymphoïdes secondaires, l'enzyme AID initie l'hypermutation somatique et la commutation isotypique.",
+      "La commutation isotypique requiert habituellement l'aide d'un lymphocyte T CD4+, notamment par l'interaction CD40L-CD40.",
+      "La maturation d'affinité associe hypermutation somatique et sélection des lymphocytes B de plus forte affinité."
+    ]},
+    {"section": "6.1", "chapitre": "c6", "titre": "Tolérance périphérique", "page": 126, "passages": [
+      "La tolérance centrale est incomplète : des lymphocytes autoréactifs gagnent la périphérie.",
+      "En périphérie, plusieurs mécanismes les contrôlent : anergie, délétion et suppression par les T régulateurs.",
+      "Les cellules dendritiques au repos, peu costimulantes, favorisent l'anergie des lymphocytes T qui reconnaissent un antigène du soi."
+    ]},
+    {"section": "6.2", "chapitre": "c6", "titre": "Lymphocytes T régulateurs", "page": 131, "passages": [
+      "Les lymphocytes T régulateurs sont CD4+ et expriment fortement CD25, la chaîne α du récepteur de l'IL-2.",
+      "Ils expriment le facteur de transcription FOXP3 ; une mutation de FOXP3 est responsable du syndrome IPEX.",
+      "Une partie d'entre eux est produite dans le thymus ; d'autres sont induits en périphérie.",
+      "Ils exercent leur fonction suppressive notamment par l'IL-10 et le TGF-β, deux cytokines immunosuppressives."
+    ]},
+    {"section": "7.5", "chapitre": "c7", "titre": "Déficits immunitaires humoraux", "page": 162, "passages": [
+      "Les IgG maternelles, transmises par voie transplacentaire, protègent le nourrisson pendant ses premiers mois.",
+      "Dans l'agammaglobulinémie liée à l'X (mutation de BTK), les lymphocytes B circulants sont absents ou très diminués.",
+      "Les infections bactériennes récidivantes débutent après la disparition des IgG maternelles, vers 4 à 6 mois.",
+      "Le thymus et l'immunité T sont préservés.",
+      "Le traitement repose sur la substitution en immunoglobulines."
+    ]},
+    {"section": "8.4", "chapitre": "c8", "titre": "Anticorps immunomodulateurs", "page": 188, "passages": [
+      "Les anticorps anti-CTLA-4 sont des anticorps bloquants : ils lèvent un frein à l'activation des lymphocytes T.",
+      "CTLA-4 entre en compétition avec CD28 pour la liaison à CD80/CD86.",
+      "Ces traitements exposent à des effets indésirables auto-immuns, comme les colites.",
+      "CTLA-4 est exprimé par les lymphocytes T activés et par les T régulateurs."
+    ]}
+  ],
+  "questions": [
+    {"id": "q1", "statut": "validee", "notion": "n4", "approfondissement": false, "origine": "Référentiel §3.2",
+     "enonce": "Concernant les molécules du CMH de classe I, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elles sont exprimées par la quasi-totalité des cellules nucléées", "reponse": true, "section": "3.2", "passage": 0, "explication": "Vrai. C'est ce qui permet aux LT CD8+ de surveiller presque toutes les cellules de l'organisme."},
+      {"texte": "Elles présentent surtout des peptides d'origine intracellulaire (cytosolique)", "reponse": true, "section": "3.2", "passage": 2, "explication": "Vrai. Ces peptides proviennent de la dégradation de protéines cytosoliques par le protéasome."},
+      {"texte": "Elles sont reconnues par les lymphocytes T CD4+", "reponse": false, "section": "3.2", "passage": 4, "explication": "Faux. Le CMH de classe I est reconnu par les LT CD8+ ; CD4 se lie au CMH de classe II."},
+      {"texte": "Elles sont associées à la β2-microglobuline", "reponse": true, "section": "3.2", "passage": 1, "explication": "Vrai. La chaîne lourde α est associée à la β2-microglobuline."},
+      {"texte": "Le chargement du peptide a lieu dans le réticulum endoplasmique", "reponse": true, "section": "3.2", "passage": 3, "explication": "Vrai. Les peptides y sont importés par le transporteur TAP."}
+     ],
+     "synthese_html": "Les molécules de classe I, <mark>exprimées par la quasi-totalité des cellules nucléées</mark>, associent une chaîne lourde α à la <mark>β2-microglobuline</mark>. Elles présentent des peptides cytosoliques <mark>chargés dans le réticulum endoplasmique</mark>, reconnus par les <mark>LT CD8+</mark>.",
+     "reference": "Référentiel · §3.2 · p. 58", "moodle": "CM 6 · vidéo à 14:20"},
+    {"id": "q2", "statut": "validee", "notion": "n5", "approfondissement": false, "origine": "Référentiel §3.3",
+     "enonce": "Concernant les molécules du CMH de classe II, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elles sont exprimées de façon constitutive par les cellules dendritiques, les macrophages et les lymphocytes B", "reponse": true, "section": "3.3", "passage": 0, "explication": "Vrai. Ce sont les cellules présentatrices professionnelles."},
+      {"texte": "Elles présentent des peptides issus de protéines endocytées", "reponse": true, "section": "3.3", "passage": 3, "explication": "Vrai. C'est la voie exogène, par opposition aux peptides cytosoliques du CMH de classe I."},
+      {"texte": "La chaîne invariante occupe le sillon jusqu'au compartiment endosomal", "reponse": true, "section": "3.3", "passage": 1, "explication": "Vrai. Elle empêche la fixation de peptides dans le réticulum endoplasmique, puis est dégradée dans l'endosome."},
+      {"texte": "Elles interagissent avec le corécepteur CD8", "reponse": false, "section": "3.3", "passage": 4, "explication": "Faux. Le corécepteur du CMH de classe II est CD4."},
+      {"texte": "Le peptide présenté mesure typiquement 8 à 10 acides aminés", "reponse": false, "section": "3.3", "passage": 3, "explication": "Faux. 8 à 10 acides aminés, c'est le CMH de classe I. Le CMH de classe II présente des peptides de 13 à 25 acides aminés."}
+     ],
+     "synthese_html": "Exprimées par les <mark>cellules présentatrices professionnelles</mark>. La <mark>chaîne invariante</mark> bloque le sillon jusqu'à l'endosome, puis est remplacée par un peptide <mark>issu de protéines endocytées</mark>, de <mark>13 à 25 acides aminés</mark>. Corécepteur : <mark>CD4</mark>.",
+     "reference": "Référentiel · §3.3 · p. 63", "moodle": "CM 7 · vidéo à 08:45"},
+    {"id": "q3", "statut": "validee", "notion": "n2", "approfondissement": false, "origine": "Référentiel §2.1",
+     "enonce": "Concernant les récepteurs Toll-like (TLR), quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "TLR4 reconnaît le lipopolysaccharide des bactéries à Gram négatif", "reponse": true, "section": "2.1", "passage": 1, "explication": "Vrai."},
+      {"texte": "TLR3 reconnaît l'ARN double brin", "reponse": true, "section": "2.1", "passage": 3, "explication": "Vrai. TLR3 est endosomal."},
+      {"texte": "Leur diversité résulte d'un réarrangement somatique", "reponse": false, "section": "2.1", "passage": 0, "explication": "Faux. Les TLR sont codés dans la lignée germinale ; le réarrangement somatique concerne les TCR et les BCR."},
+      {"texte": "TLR5 reconnaît la flagelline", "reponse": true, "section": "2.1", "passage": 2, "explication": "Vrai."},
+      {"texte": "Tous les TLR sont exprimés à la membrane plasmique", "reponse": false, "section": "2.1", "passage": 3, "explication": "Faux. TLR3, 7, 8 et 9 sont situés dans les endosomes."}
+     ],
+     "synthese_html": "Récepteurs <mark>codés dans la lignée germinale</mark>. <mark>TLR4</mark> : LPS ; <mark>TLR5</mark> : flagelline. TLR3, 7, 8 et 9 sont <mark>endosomaux</mark> (<mark>ARN double brin pour TLR3</mark>).",
+     "reference": "Référentiel · §2.1 · p. 31", "moodle": null},
+    {"id": "q4", "statut": "validee", "notion": "n3", "approfondissement": false, "origine": "Référentiel §2.4",
+     "enonce": "Concernant le système du complément, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "La voie classique est initiée par la fixation de C1q sur des complexes immuns", "reponse": true, "section": "2.4", "passage": 0, "explication": "Vrai."},
+      {"texte": "C3b est une opsonine", "reponse": true, "section": "2.4", "passage": 3, "explication": "Vrai. Il facilite la phagocytose."},
+      {"texte": "C5a est une anaphylatoxine", "reponse": true, "section": "2.4", "passage": 4, "explication": "Vrai, comme C3a."},
+      {"texte": "Le complexe d'attaque membranaire est formé par C5b à C9", "reponse": true, "section": "2.4", "passage": 5, "explication": "Vrai."},
+      {"texte": "L'activation de la voie alterne nécessite des anticorps", "reponse": false, "section": "2.4", "passage": 1, "explication": "Faux. La voie alterne s'active spontanément, sans anticorps ; c'est la voie classique qui dépend des anticorps."}
+     ],
+     "synthese_html": "<mark>Voie classique</mark> : C1q sur complexes immuns. <mark>Voie alterne</mark> : spontanée, <mark>sans anticorps</mark>. <mark>C3b opsonise</mark>, <mark>C3a et C5a sont des anaphylatoxines</mark>, <mark>C5b-C9</mark> forment le complexe d'attaque membranaire.",
+     "reference": "Référentiel · §2.4 · p. 42", "moodle": null},
+    {"id": "q5", "statut": "validee", "notion": "n6", "approfondissement": false, "origine": "Référentiel §4.1",
+     "enonce": "Concernant la sélection thymique des lymphocytes T, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "La sélection positive retient les thymocytes reconnaissant le CMH du soi avec une affinité faible à modérée", "reponse": true, "section": "4.1", "passage": 0, "explication": "Vrai."},
+      {"texte": "La sélection négative élimine les thymocytes fortement autoréactifs", "reponse": true, "section": "4.1", "passage": 1, "explication": "Vrai."},
+      {"texte": "AIRE permet l'expression d'antigènes tissulaires par les cellules épithéliales médullaires", "reponse": true, "section": "4.1", "passage": 2, "explication": "Vrai. Son déficit donne le syndrome APECED."},
+      {"texte": "La sélection positive se déroule principalement dans la médullaire", "reponse": false, "section": "4.1", "passage": 0, "explication": "Faux. Elle a lieu principalement dans le cortex ; la médullaire est le siège principal de la sélection négative."},
+      {"texte": "La grande majorité des thymocytes meurt au cours de la maturation", "reponse": true, "section": "4.1", "passage": 3, "explication": "Vrai. Plus de 95 % d'entre eux."}
+     ],
+     "synthese_html": "Sélection positive dans le <mark>cortex</mark> (affinité <mark>faible à modérée</mark> pour le CMH du soi). Sélection négative dans la <mark>médullaire</mark>, où <mark>AIRE</mark> fait exprimer des antigènes tissulaires. <mark>Plus de 95 %</mark> des thymocytes meurent.",
+     "reference": "Référentiel · §4.1 · p. 77", "moodle": "ED 3 · diapos 12 à 18"},
+    {"id": "q6", "statut": "validee", "notion": "n7", "approfondissement": false, "origine": "Référentiel §4.3",
+     "enonce": "Concernant l'activation d'un lymphocyte T naïf, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elle nécessite la reconnaissance du complexe CMH-peptide par le TCR", "reponse": true, "section": "4.3", "passage": 0, "explication": "Vrai. C'est le signal 1."},
+      {"texte": "La costimulation fait intervenir CD28 et CD80/CD86", "reponse": true, "section": "4.3", "passage": 1, "explication": "Vrai. C'est le signal 2."},
+      {"texte": "CTLA-4 est un récepteur activateur", "reponse": false, "section": "4.3", "passage": 4, "explication": "Faux. CTLA-4 est un récepteur inhibiteur : il capte CD80/CD86 avec une plus forte affinité que CD28."},
+      {"texte": "L'IL-2 favorise l'expansion clonale", "reponse": true, "section": "4.3", "passage": 3, "explication": "Vrai."},
+      {"texte": "Un signal TCR sans costimulation peut induire une anergie", "reponse": true, "section": "4.3", "passage": 2, "explication": "Vrai."}
+     ],
+     "synthese_html": "<mark>Signal 1</mark> (TCR) + <mark>signal 2</mark> (<mark>CD28 / CD80-CD86</mark>). Sans signal 2 : <mark>anergie</mark>. <mark>CTLA-4</mark> <mark>freine</mark> la réponse. L'<mark>IL-2</mark> soutient la prolifération.",
+     "reference": "Référentiel · §4.3 · p. 86", "moodle": null},
+    {"id": "q7", "statut": "validee", "notion": "n8", "approfondissement": false, "origine": "Référentiel §5.2",
+     "enonce": "Concernant les classes d'immunoglobulines, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Les IgG traversent le placenta", "reponse": true, "section": "5.2", "passage": 0, "explication": "Vrai, grâce au récepteur FcRn."},
+      {"texte": "L'IgM sécrétée est un pentamère", "reponse": true, "section": "5.2", "passage": 1, "explication": "Vrai."},
+      {"texte": "L'IgA sécrétoire comporte une pièce sécrétoire", "reponse": true, "section": "5.2", "passage": 2, "explication": "Vrai."},
+      {"texte": "La commutation isotypique modifie la spécificité antigénique", "reponse": false, "section": "5.2", "passage": 4, "explication": "Faux. Elle change la région constante de la chaîne lourde, pas la spécificité."},
+      {"texte": "Les IgE se fixent sur les mastocytes via FcεRI", "reponse": true, "section": "5.2", "passage": 3, "explication": "Vrai."}
+     ],
+     "synthese_html": "<mark>IgG</mark> : seules à <mark>franchir le placenta</mark>. <mark>IgM</mark> sécrétée <mark>pentamérique</mark>. IgA sécrétoire avec <mark>pièce sécrétoire</mark>. <mark>IgE</mark> sur mastocytes via <mark>FcεRI</mark>. La commutation <mark>ne modifie pas la spécificité</mark>.",
+     "reference": "Référentiel · §5.2 · p. 104", "moodle": "CM 5 · vidéo à 33:00"},
+    {"id": "q8", "statut": "validee", "notion": "n9", "approfondissement": false, "origine": "Référentiel §5.4",
+     "enonce": "Concernant la commutation isotypique et la maturation d'affinité, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "L'enzyme AID est nécessaire à la commutation isotypique", "reponse": true, "section": "5.4", "passage": 1, "explication": "Vrai. AID initie aussi l'hypermutation somatique."},
+      {"texte": "L'hypermutation somatique a lieu dans les centres germinatifs", "reponse": true, "section": "5.4", "passage": 1, "explication": "Vrai."},
+      {"texte": "La commutation requiert habituellement l'interaction CD40-CD40L avec un lymphocyte T CD4+", "reponse": true, "section": "5.4", "passage": 2, "explication": "Vrai."},
+      {"texte": "Les recombinaisons V(D)J ont lieu dans les organes lymphoïdes secondaires", "reponse": false, "section": "5.4", "passage": 0, "explication": "Faux. Elles ont lieu plus tôt, pendant le développement des lymphocytes B dans la moelle osseuse."},
+      {"texte": "La maturation d'affinité associe hypermutation et sélection", "reponse": true, "section": "5.4", "passage": 3, "explication": "Vrai."}
+     ],
+     "synthese_html": "Dans les <mark>centres germinatifs</mark>, <mark>AID</mark> initie hypermutation et commutation, qui dépend de <mark>CD40L-CD40</mark>. La <mark>sélection</mark> produit la maturation d'affinité. V(D)J : dans la <mark>moelle osseuse</mark>.",
+     "reference": "Référentiel · §5.4 · p. 112", "moodle": null},
+    {"id": "q9", "statut": "validee", "notion": "n1", "approfondissement": false, "origine": "Référentiel §1.2",
+     "enonce": "Concernant l'organisation du système immunitaire, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "La moelle osseuse et le thymus sont des organes lymphoïdes primaires", "reponse": true, "section": "1.2", "passage": 0, "explication": "Vrai."},
+      {"texte": "Les ganglions lymphatiques sont des organes lymphoïdes secondaires", "reponse": true, "section": "1.2", "passage": 2, "explication": "Vrai."},
+      {"texte": "La rate filtre les antigènes présents dans le sang", "reponse": true, "section": "1.2", "passage": 3, "explication": "Vrai. Les ganglions, eux, drainent la lymphe."},
+      {"texte": "Les lymphocytes naïfs entrent dans le ganglion par les veinules à endothélium épais", "reponse": true, "section": "1.2", "passage": 4, "explication": "Vrai. Ce sont les HEV."},
+      {"texte": "Les lymphocytes B achèvent leur maturation dans le thymus", "reponse": false, "section": "1.2", "passage": 1, "explication": "Faux. Les lymphocytes B achèvent leur maturation dans la moelle osseuse ; le thymus concerne les lymphocytes T."}
+     ],
+     "synthese_html": "<mark>Organes primaires</mark> : moelle osseuse (maturation des <mark>B</mark>) et thymus (maturation des T). Secondaires : <mark>ganglions</mark>, <mark>rate</mark>, muqueuses. Entrée des naïfs par les <mark>HEV</mark>.",
+     "reference": "Référentiel · §1.2 · p. 9", "moodle": null},
+    {"id": "q11", "statut": "validee", "notion": "n1", "approfondissement": false, "origine": "Référentiel §1.2",
+     "enonce": "Concernant les organes lymphoïdes secondaires, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Ils sont le lieu de rencontre entre les lymphocytes naïfs et l'antigène", "reponse": true, "section": "1.2", "passage": 2, "explication": "Vrai."},
+      {"texte": "Les ganglions lymphatiques drainent la lymphe", "reponse": true, "section": "1.2", "passage": 3, "explication": "Vrai."},
+      {"texte": "Le thymus est un organe lymphoïde secondaire", "reponse": false, "section": "1.2", "passage": 0, "explication": "Faux. Le thymus est un organe lymphoïde primaire, comme la moelle osseuse."},
+      {"texte": "L'entrée des lymphocytes naïfs dans le ganglion fait intervenir la L-sélectine et CCR7", "reponse": true, "section": "1.2", "passage": 4, "explication": "Vrai."},
+      {"texte": "Les tissus lymphoïdes associés aux muqueuses n'en font pas partie", "reponse": false, "section": "1.2", "passage": 2, "explication": "Faux. Ils font partie des organes lymphoïdes secondaires, avec les ganglions et la rate."}
+     ],
+     "synthese_html": "Organes <mark>secondaires</mark> : <mark>ganglions</mark> (lymphe), <mark>rate</mark> (sang), <mark>tissus muqueux</mark>. Lieu de <mark>rencontre</mark> entre lymphocytes naïfs et antigène. Entrée par les HEV (<mark>L-sélectine, CCR7</mark>).",
+     "reference": "Référentiel · §1.2 · p. 9", "moodle": null},
+    {"id": "q10", "statut": "validee", "notion": "n10", "approfondissement": false, "origine": "Référentiel §6.2",
+     "enonce": "Concernant les lymphocytes T régulateurs, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Ils expriment le facteur de transcription FOXP3", "reponse": true, "section": "6.2", "passage": 1, "explication": "Vrai."},
+      {"texte": "Une mutation de FOXP3 est responsable du syndrome IPEX", "reponse": true, "section": "6.2", "passage": 1, "explication": "Vrai."},
+      {"texte": "Ils expriment fortement CD25", "reponse": true, "section": "6.2", "passage": 0, "explication": "Vrai. CD25 est la chaîne α du récepteur de l'IL-2."},
+      {"texte": "L'IL-10 et le TGF-β sont des cytokines pro-inflammatoires", "reponse": false, "section": "6.2", "passage": 3, "explication": "Faux. Ce sont des cytokines immunosuppressives, par lesquelles les Treg exercent en partie leur fonction."},
+      {"texte": "Une partie d'entre eux est produite dans le thymus", "reponse": true, "section": "6.2", "passage": 2, "explication": "Vrai. D'autres sont induits en périphérie."}
+     ],
+     "synthese_html": "Treg <mark>CD4+</mark>, <mark>CD25 élevé</mark>, <mark>FOXP3+</mark>, en partie <mark>thymiques</mark>. <mark>IL-10 et TGF-β</mark> sont <mark>immunosuppressives</mark>. Déficit en FOXP3 : <mark>syndrome IPEX</mark>.",
+     "reference": "Référentiel · §6.2 · p. 131", "moodle": null},
+    {"id": "q12", "statut": "validee", "notion": "n11", "approfondissement": false, "origine": "Référentiel §6.1",
+     "enonce": "Concernant la tolérance périphérique des lymphocytes T, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elle est nécessaire car la tolérance centrale est incomplète", "reponse": true, "section": "6.1", "passage": 0, "explication": "Vrai."},
+      {"texte": "Elle fait intervenir l'anergie", "reponse": true, "section": "6.1", "passage": 1, "explication": "Vrai."},
+      {"texte": "Les T régulateurs y participent", "reponse": true, "section": "6.1", "passage": 1, "explication": "Vrai."},
+      {"texte": "Une cellule dendritique au repos, peu costimulante, favorise l'activation des lymphocytes T autoréactifs", "reponse": false, "section": "6.1", "passage": 2, "explication": "Faux. Faute de costimulation, elle favorise au contraire leur anergie."},
+      {"texte": "Elle repose uniquement sur la délétion des lymphocytes autoréactifs", "reponse": false, "section": "6.1", "passage": 1, "explication": "Faux. Elle associe anergie, délétion et suppression par les T régulateurs."}
+     ],
+     "synthese_html": "La tolérance centrale est <mark>incomplète</mark>. En périphérie : <mark>anergie</mark>, <mark>délétion</mark>, <mark>T régulateurs</mark>. Une cellule dendritique au repos, <mark>peu costimulante</mark>, induit l'anergie.",
+     "reference": "Référentiel · §6.1 · p. 126", "moodle": null},
+    {"id": "x1", "statut": "validee", "notion": "n8", "approfondissement": true, "origine": "Référentiel §5.2 et §7.5",
+     "vignette": "Un garçon de 7 mois présente depuis l'âge de 4 mois des otites et des pneumopathies bactériennes à répétition. IgG, IgA et IgM effondrées. Mutation du gène BTK.",
+     "enonce": "Quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Les lymphocytes B circulants sont très diminués ou absents", "reponse": true, "section": "7.5", "passage": 1, "explication": "Vrai. C'est l'agammaglobulinémie liée à l'X."},
+      {"texte": "Les infections débutent quand les IgG d'origine maternelle ont diminué", "reponse": true, "section": "7.5", "passage": 2, "explication": "Vrai. D'où le début vers 4 à 6 mois."},
+      {"texte": "Les IgG maternelles ont franchi le placenta grâce au FcRn", "reponse": true, "section": "5.2", "passage": 0, "explication": "Vrai."},
+      {"texte": "Le thymus est habituellement absent", "reponse": false, "section": "7.5", "passage": 3, "explication": "Faux. Le thymus et l'immunité T sont préservés."},
+      {"texte": "Le traitement repose sur une substitution en immunoglobulines", "reponse": true, "section": "7.5", "passage": 4, "explication": "Vrai."}
+     ],
+     "synthese_html": "Les <mark>IgG maternelles</mark> (<mark>FcRn</mark>) protègent les premiers mois. Agammaglobulinémie liée à l'X (<mark>BTK</mark>) : <mark>pas de B circulants</mark>, infections <mark>après disparition des IgG maternelles</mark>, <mark>substitution en immunoglobulines</mark>. Thymus préservé.",
+     "reference": "Référentiel · §5.2 et §7.5", "moodle": null},
+    {"id": "x2", "statut": "validee", "notion": "n7", "approfondissement": true, "origine": "Référentiel §4.3 et §8.4",
+     "vignette": "Patient de 62 ans, mélanome métastatique, traité par anticorps anti-CTLA-4. Six semaines plus tard : colite.",
+     "enonce": "Quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Le traitement lève un frein à l'activation des lymphocytes T", "reponse": true, "section": "8.4", "passage": 0, "explication": "Vrai."},
+      {"texte": "CTLA-4 entre en compétition avec CD28 pour CD80/CD86", "reponse": true, "section": "8.4", "passage": 1, "explication": "Vrai."},
+      {"texte": "La colite peut être un effet indésirable auto-immun", "reponse": true, "section": "8.4", "passage": 2, "explication": "Vrai."},
+      {"texte": "Cet anticorps est un agoniste de CTLA-4", "reponse": false, "section": "8.4", "passage": 0, "explication": "Faux. C'est un anticorps bloquant : il empêche CTLA-4 d'agir."},
+      {"texte": "CTLA-4 est exprimé principalement par les lymphocytes B naïfs", "reponse": false, "section": "8.4", "passage": 3, "explication": "Faux. CTLA-4 est exprimé par les lymphocytes T activés et par les T régulateurs."}
+     ],
+     "synthese_html": "<mark>CTLA-4</mark> lie CD80/CD86 mieux que <mark>CD28</mark> et <mark>freine</mark> l'activation. Les anticorps <mark>bloquants</mark> lèvent ce frein, avec un risque d'<mark>effets auto-immuns</mark>.",
+     "reference": "Référentiel · §4.3 et §8.4", "moodle": null},
+    {"id": "g1", "statut": "a_relire", "notion": "n13", "approfondissement": false, "origine": "CM 7 · 31:10 (question proposée par l'outil)",
+     "enonce": "Concernant la présentation croisée, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elle permet la présentation d'antigènes exogènes sur le CMH de classe I", "reponse": true, "section": "3.4", "passage": 0, "explication": "Vrai."},
+      {"texte": "Elle est surtout réalisée par certaines cellules dendritiques", "reponse": true, "section": "3.4", "passage": 0, "explication": "Vrai."},
+      {"texte": "Elle est indispensable à l'activation des LT CD4+", "reponse": false, "section": "3.4", "passage": 1, "explication": "Faux. Elle sert à initier des réponses T CD8+."},
+      {"texte": "Elle initie des réponses CD8 anti-virales et anti-tumorales", "reponse": true, "section": "3.4", "passage": 1, "explication": "Vrai."},
+      {"texte": "Elle repose sur la chaîne invariante", "reponse": false, "section": "3.4", "passage": 2, "explication": "Faux. La chaîne invariante est propre à la voie du CMH de classe II."}
+     ],
+     "synthese_html": "Présentation d'<mark>antigènes exogènes</mark> sur le <mark>CMH de classe I</mark> par certaines <mark>cellules dendritiques</mark>, pour initier des réponses <mark>CD8+</mark> anti-virales et anti-tumorales.",
+     "reference": "Référentiel · §3.4 · p. 67", "moodle": "CM 7 · vidéo à 31:10"},
+    {"id": "g2", "statut": "a_relire", "notion": "n12", "approfondissement": false, "origine": "Référentiel §2.3 (question proposée par l'outil)",
+     "enonce": "Concernant les cellules NK, quelle(s) proposition(s) est (sont) exacte(s) ?",
+     "items": [
+      {"texte": "Elles appartiennent à l'immunité innée", "reponse": true, "section": "2.3", "passage": 0, "explication": "Vrai."},
+      {"texte": "Elles lysent les cellules ayant perdu le CMH de classe I", "reponse": true, "section": "2.3", "passage": 1, "explication": "Vrai. C'est la reconnaissance du « soi manquant »."},
+      {"texte": "Elles expriment un TCR réarrangé", "reponse": false, "section": "2.3", "passage": 0, "explication": "Faux. Les NK n'ont pas de récepteur réarrangé."},
+      {"texte": "Elles réalisent de l'ADCC via CD16", "reponse": true, "section": "2.3", "passage": 2, "explication": "Vrai."},
+      {"texte": "Elles produisent de l'IFN-γ", "reponse": true, "section": "2.3", "passage": 3, "explication": "Vrai."}
+     ],
+     "synthese_html": "<mark>Immunité innée</mark>, <mark>pas de TCR</mark>. Lyse des cellules <mark>sans CMH de classe I</mark>, <mark>ADCC via CD16</mark>, production d'<mark>IFN-γ</mark>.",
+     "reference": "Référentiel · §2.3 · p. 38", "moodle": null}
+  ],
+  "flashcards": [
+    {"recto": "CMH de classe I", "verso": "Cellules nucléées · peptides cytosoliques · LT CD8+", "notion": "n4"},
+    {"recto": "CMH de classe II", "verso": "Cellules présentatrices · peptides endocytés · LT CD4+", "notion": "n5"},
+    {"recto": "TLR4", "verso": "Reconnaît le LPS des bactéries à Gram négatif", "notion": "n2"},
+    {"recto": "AIRE", "verso": "Antigènes tissulaires dans la médullaire thymique · déficit : APECED", "notion": "n6"},
+    {"recto": "FOXP3", "verso": "Facteur des T régulateurs · déficit : IPEX", "notion": "n10"},
+    {"recto": "AID", "verso": "Hypermutation somatique et commutation isotypique", "notion": "n9"},
+    {"recto": "IgM", "verso": "Pentamère · première classe produite", "notion": "n8"},
+    {"recto": "HEV", "verso": "Entrée des lymphocytes naïfs dans le ganglion", "notion": "n1"}
+  ],
+  "vrai_faux": [
+    {"affirmation": "Les IgG traversent le placenta.", "reponse": true},
+    {"affirmation": "Les lymphocytes B maturent dans le thymus.", "reponse": false},
+    {"affirmation": "TLR4 reconnaît le LPS.", "reponse": true},
+    {"affirmation": "CTLA-4 est un récepteur activateur.", "reponse": false},
+    {"affirmation": "C3b est une opsonine.", "reponse": true},
+    {"affirmation": "La voie alterne nécessite des anticorps.", "reponse": false},
+    {"affirmation": "La sélection positive a lieu dans le cortex thymique.", "reponse": true},
+    {"affirmation": "Le CMH de classe II est reconnu par CD8.", "reponse": false},
+    {"affirmation": "L'IgM sécrétée est un pentamère.", "reponse": true},
+    {"affirmation": "AID est nécessaire à l'hypermutation somatique.", "reponse": true},
+    {"affirmation": "La commutation isotypique change la spécificité.", "reponse": false},
+    {"affirmation": "Les Treg expriment FOXP3.", "reponse": true},
+    {"affirmation": "Les TLR sont issus d'un réarrangement somatique.", "reponse": false},
+    {"affirmation": "Les NK lysent les cellules sans CMH de classe I.", "reponse": true},
+    {"affirmation": "Les recombinaisons V(D)J ont lieu dans les ganglions.", "reponse": false},
+    {"affirmation": "C5a est une anaphylatoxine.", "reponse": true},
+    {"affirmation": "L'IL-10 est pro-inflammatoire.", "reponse": false},
+    {"affirmation": "Les naïfs entrent dans le ganglion par les HEV.", "reponse": true},
+    {"affirmation": "Les IgE se fixent aux mastocytes via FcεRI.", "reponse": true},
+    {"affirmation": "Le CMH II présente des peptides de 8 à 10 acides aminés.", "reponse": false}
+  ],
+  "associations": [
+    {"gauche": "TLR4", "droite": "LPS"},
+    {"gauche": "TLR5", "droite": "Flagelline"},
+    {"gauche": "TLR3", "droite": "ARN double brin"},
+    {"gauche": "CD8", "droite": "CMH de classe I"},
+    {"gauche": "CD4", "droite": "CMH de classe II"},
+    {"gauche": "FOXP3", "droite": "T régulateurs"},
+    {"gauche": "AIRE", "droite": "Sélection négative"},
+    {"gauche": "AID", "droite": "Commutation isotypique"}
+  ],
+  "remise_en_ordre": {
+    "titre": "CMH II",
+    "notion": "n5",
+    "etapes": [
+      "Synthèse du CMH II dans le réticulum endoplasmique, avec la chaîne invariante",
+      "Transport vers l'endosome",
+      "Dégradation de la chaîne invariante : il reste CLIP",
+      "HLA-DM échange CLIP contre un peptide endocyté",
+      "Expression du complexe à la surface",
+      "Reconnaissance par un LT CD4+"
+    ]
+  },
+  "enigmes": [
+    {"indices": ["Première classe d'anticorps d'une réponse primaire.", "Pentamère sous forme sécrétée.", "J'active très bien la voie classique."], "choix": ["IgM", "IgG", "IgA", "IgE"], "reponse": 0},
+    {"indices": ["Organe lymphoïde primaire.", "Mon cortex accueille la sélection positive.", "Ma médullaire exprime AIRE."], "choix": ["Rate", "Thymus", "Moelle osseuse", "Ganglion"], "reponse": 1},
+    {"indices": ["Immunité innée.", "Je tue les cellules sans CMH de classe I.", "Par CD16, je fais de l'ADCC."], "choix": ["LT CD8+", "Macrophage", "Cellule NK", "Neutrophile"], "reponse": 2}
+  ],
+  "quiz_direct": [
+    {"question": "Quel TLR reconnaît le LPS ?", "choix": ["TLR2", "TLR3", "TLR4", "TLR9"], "reponse": 2},
+    {"question": "Quel corécepteur reconnaît le CMH de classe I ?", "choix": ["CD4", "CD8", "CD28", "CD40"], "reponse": 1},
+    {"question": "Quelle immunoglobuline traverse le placenta ?", "choix": ["IgA", "IgE", "IgG", "IgM"], "reponse": 2},
+    {"question": "Où a lieu la sélection positive ?", "choix": ["Médullaire thymique", "Cortex thymique", "Moelle osseuse", "Rate"], "reponse": 1},
+    {"question": "Quel facteur définit les Treg ?", "choix": ["T-bet", "GATA-3", "FOXP3", "AIRE"], "reponse": 2},
+    {"question": "Quelle enzyme initie l'hypermutation somatique ?", "choix": ["RAG1", "AID", "TdT", "Perforine"], "reponse": 1}
+  ],
+  "tuteur": [
+    {"mots_cles": ["cmh", "hla", "classe i", "classe ii", "classe 1", "classe 2", "presentation"], "chapitre": "c3",
+     "reponse_html": "Les deux présentent un peptide aux lymphocytes T, mais pas le même. Le <mark>CMH de classe I</mark> est exprimé par presque toutes les cellules nucléées et présente des peptides <mark>cytosoliques</mark> aux <mark>LT CD8+</mark>. Le <mark>CMH de classe II</mark> est réservé aux cellules présentatrices (dendritiques, macrophages, B) et présente des peptides <mark>endocytés</mark>, plus longs (13 à 25 acides aminés), aux <mark>LT CD4+</mark>.",
+     "sources": [{"libelle": "Référentiel · §3.2 · p. 58", "section": "3.2"}, {"libelle": "Référentiel · §3.3 · p. 63", "section": "3.3"}, {"libelle": "CM 7 · 08:45", "moodle": true}]},
+    {"mots_cles": ["chaine invariante", "clip", "hla-dm", "invariante"], "chapitre": "c3",
+     "reponse_html": "La <mark>chaîne invariante</mark> occupe le sillon du CMH II dès sa synthèse, pour qu'aucun peptide du réticulum endoplasmique ne s'y loge. Dans l'endosome, elle est dégradée ; il reste le fragment <mark>CLIP</mark>, que <mark>HLA-DM</mark> échange contre un peptide endocyté.",
+     "sources": [{"libelle": "Référentiel · §3.3 · p. 63", "section": "3.3"}, {"libelle": "CM 7 · 21:30", "moodle": true}]},
+    {"mots_cles": ["tlr", "toll", "lps", "flagelline", "prr", "motif"], "chapitre": "c2",
+     "reponse_html": "Les TLR reconnaissent des motifs microbiens et sont <mark>codés dans la lignée germinale</mark> (pas de réarrangement). <mark>TLR4</mark> reconnaît le LPS, <mark>TLR5</mark> la flagelline. TLR3, 7, 8 et 9 sont <mark>endosomaux</mark> et reconnaissent des acides nucléiques.",
+     "sources": [{"libelle": "Référentiel · §2.1 · p. 31", "section": "2.1"}, {"libelle": "CM 3 · 12:10", "moodle": true}]},
+    {"mots_cles": ["complement", "c3b", "c5a", "c1q", "opsonine", "anaphylatoxine", "voie alterne", "voie classique", "attaque membranaire"], "chapitre": "c2",
+     "reponse_html": "Trois voies d'activation : <mark>classique</mark> (C1q sur des anticorps liés), <mark>alterne</mark> (spontanée, sans anticorps) et lectines. Elles convergent vers la C3 convertase. <mark>C3b</mark> opsonise, <mark>C3a et C5a</mark> sont des anaphylatoxines, <mark>C5b-C9</mark> forment le complexe d'attaque membranaire.",
+     "sources": [{"libelle": "Référentiel · §2.4 · p. 42", "section": "2.4"}]},
+    {"mots_cles": ["thymus", "selection", "aire", "thymocyte", "positive", "negative", "cortex", "medullaire"], "chapitre": "c4",
+     "reponse_html": "La <mark>sélection positive</mark>, dans le cortex, garde les thymocytes qui reconnaissent le CMH du soi avec une affinité faible à modérée. La <mark>sélection négative</mark>, dans la médullaire, élimine ceux qui reconnaissent trop fortement le soi ; <mark>AIRE</mark> y fait exprimer des antigènes tissulaires. Plus de 95 % des thymocytes meurent.",
+     "sources": [{"libelle": "Référentiel · §4.1 · p. 77", "section": "4.1"}, {"libelle": "ED 3 · diapos 12-18", "moodle": true}]},
+    {"mots_cles": ["costimulation", "cd28", "ctla", "cd80", "cd86", "signal", "anergie", "activation", "il-2", "naif"], "chapitre": "c4",
+     "reponse_html": "Un LT naïf a besoin de deux signaux : le <mark>signal 1</mark> (TCR / CMH-peptide) et le <mark>signal 2</mark> de costimulation (<mark>CD28</mark> sur CD80/CD86). Sans signal 2, il devient <mark>anergique</mark>. <mark>CTLA-4</mark> freine ensuite la réponse en captant CD80/CD86.",
+     "sources": [{"libelle": "Référentiel · §4.3 · p. 86", "section": "4.3"}]},
+    {"mots_cles": ["igg", "igm", "iga", "ige", "placenta", "immunoglobuline", "anticorps", "isotype", "fcrn"], "chapitre": "c5",
+     "reponse_html": "Les <mark>IgG</mark> sont les seules à traverser le placenta (FcRn). L'<mark>IgM</mark> sécrétée est un pentamère, première classe produite. L'<mark>IgA</mark> sécrétoire est dimérique, avec une pièce sécrétoire. Les <mark>IgE</mark> se fixent sur les mastocytes via FcεRI.",
+     "sources": [{"libelle": "Référentiel · §5.2 · p. 104", "section": "5.2"}, {"libelle": "CM 5 · 33:00", "moodle": true}]},
+    {"mots_cles": ["commutation", "aid", "hypermutation", "centre germinatif", "affinite", "vdj", "v(d)j", "cd40"], "chapitre": "c5",
+     "reponse_html": "Dans les <mark>centres germinatifs</mark>, l'enzyme <mark>AID</mark> déclenche l'hypermutation somatique et la commutation isotypique, qui nécessite l'aide T via <mark>CD40L-CD40</mark>. La sélection des meilleurs clones produit la <mark>maturation d'affinité</mark>. Les recombinaisons V(D)J ont lieu avant, dans la moelle osseuse.",
+     "sources": [{"libelle": "Référentiel · §5.4 · p. 112", "section": "5.4"}]},
+    {"mots_cles": ["treg", "regulateur", "foxp3", "ipex", "cd25", "tolerance"], "chapitre": "c6",
+     "reponse_html": "Les <mark>T régulateurs</mark> sont CD4+, expriment fortement CD25 et sont <mark>FOXP3+</mark> ; une partie est produite dans le thymus. Ils freinent la réponse, notamment par l'IL-10 et le TGF-β. Un déficit en FOXP3 donne le <mark>syndrome IPEX</mark>.",
+     "sources": [{"libelle": "Référentiel · §6.2 · p. 131", "section": "6.2"}]},
+    {"mots_cles": ["ganglion", "rate", "hev", "organe", "moelle", "lymphoide", "primaire", "secondaire"], "chapitre": "c1",
+     "reponse_html": "Organes <mark>primaires</mark> : moelle osseuse et thymus, où les lymphocytes se développent et acquièrent leur récepteur. Organes <mark>secondaires</mark> : ganglions, rate, tissus muqueux, où ils rencontrent l'antigène. Les lymphocytes naïfs entrent dans le ganglion par les <mark>HEV</mark>.",
+     "sources": [{"libelle": "Référentiel · §1.2 · p. 9", "section": "1.2"}]},
+    {"mots_cles": ["nk", "natural killer", "adcc", "cd16"], "chapitre": "c2",
+     "reponse_html": "Les <mark>cellules NK</mark> appartiennent à l'immunité innée. Elles tuent les cellules qui ont perdu leur CMH de classe I et peuvent réaliser l'<mark>ADCC</mark> via CD16. Elles produisent de l'IFN-γ.",
+     "sources": [{"libelle": "Référentiel · §2.3 · p. 38", "section": "2.3"}]}
+  ]
+}

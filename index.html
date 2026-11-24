@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#8a1538">
+<title>Chevet · démonstration ceepia</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Chevet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* DA : sobre et institutionnelle. Fond légèrement chaud, cartes sans bordure, un seul aplat bordeaux par écran (le bloc d'action principal).
+   Identité UFR de Médecine Université Paris Cité : bordeaux #8a1538, noir, blanc. Typo : Darby Sans si installée, sinon Archivo. */
+:root{
+  --bg:#f4f2f2; --surface:#ffffff; --surface-2:#f1eded; --line:#e6e0e1;
+  --ink:#121212; --ink-2:#4a4547; --ink-3:#8a8385;
+  --accent:#8a1538; --accent-2:#a8234b; --accent-soft:#f5e4e9; --on-accent:#ffffff;
+  --moodle:#c25a00; --moodle-soft:#fbeadb;
+  --ok:#14834a; --ok-soft:#e0f2e7; --warn:#b85a0e; --warn-soft:#fbeadc; --bad:#b4233a; --bad-soft:#f9e1e5;
+  --gold:#a77b12; --gold-soft:#f7eed5;
+  --shadow:0 1px 2px rgba(40,10,20,.05),0 4px 16px rgba(40,10,20,.05);
+  --f-display:"Darby Sans Web","Darby Sans","Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Darby Sans Web","Darby Sans","Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+
+[hidden]{display:none!important}
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.025em}
+h2{font-size:1.25rem;font-weight:700}
+h3{font-size:1rem;font-weight:700}
+p{margin:0}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700}
+.muted{color:var(--ink-2)}
+.small{font-size:.85rem}
+kbd{font-family:var(--f-mono);font-size:.72rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--ink-3);background:var(--surface)}
+
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto}
+
+/* En-tête */
+header.top{position:sticky;top:0;z-index:5;background:var(--surface);border-top:4px solid var(--accent);box-shadow:0 1px 0 var(--line)}
+.top-inner{display:flex;align-items:center;gap:10px 24px;flex-wrap:wrap;padding-block:12px}
+.brand{display:flex;flex-direction:column;line-height:1.1}
+.brand b{font-family:var(--f-display);font-size:1.3rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.brand span{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+nav.tabs{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
+nav.tabs a{padding:8px 12px;color:var(--ink-2);text-decoration:none;font-weight:600;font-size:.9rem;border-bottom:2px solid transparent}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs a:hover{color:var(--ink)}
+.lock{font-size:.75rem;color:var(--ink-3);display:flex;align-items:center;gap:6px}
+.lock i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block}
+
+main{padding-block:32px 56px}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 16px;flex-wrap:wrap;margin-bottom:24px}
+.view-head p{margin-top:4px;color:var(--ink-2)}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.stack{display:flex;flex-direction:column;gap:20px;min-width:0}
+.panel{background:var(--surface);border-radius:14px;padding:22px;min-width:0;box-shadow:var(--shadow)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .panel{border:1px solid var(--line)}}
+:root[data-theme="dark"] .panel{border:1px solid var(--line)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;margin-bottom:16px;flex-wrap:wrap}
+
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 15px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-block;font-size:.9rem}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.btn.light{background:#fff;border-color:#fff;color:#8a1538}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:5px 12px;font-size:.8rem}
+.btn.lg{padding:12px 22px;font-size:1rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.between{justify-content:space-between}
+
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.acc{background:var(--accent-soft);color:var(--accent)}
+.chip.md{background:var(--moodle-soft);color:var(--moodle)}
+.chip.gold{background:var(--gold-soft);color:var(--gold)}
+
+/* Bloc d'action principal (aplat bordeaux) */
+.hero{background:#8a1538;color:#fff;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:36px solid rgba(255,255,255,.06)}
+.hero .label{color:rgba(255,255,255,.7)}
+.hero h2{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.hero .tgt{font-size:.95rem;color:rgba(255,255,255,.88);max-width:46ch}
+.hero .tgt b{color:#fff}
+.hero .seg{border-color:rgba(255,255,255,.3)}
+.hero .seg button{background:transparent;color:rgba(255,255,255,.8)}
+.hero .seg button[aria-pressed="true"]{background:#fff;color:#8a1538}
+.hero .chaps button{border-color:rgba(255,255,255,.3);background:transparent;color:rgba(255,255,255,.85)}
+.hero .chaps button[aria-pressed="true"]{background:#fff;color:#8a1538;border-color:#fff}
+.hero .stats{display:flex;gap:28px;flex-wrap:wrap;padding-top:16px;border-top:1px solid rgba(255,255,255,.18);font-size:.82rem;color:rgba(255,255,255,.75)}
+.hero .stats b{display:block;font-family:var(--f-mono);font-weight:500;font-size:1.1rem;color:#fff}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:var(--surface);color:var(--ink-2);padding:6px 14px;font-size:.85rem;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.chaps{display:flex;flex-wrap:wrap;gap:6px}
+.chaps button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:4px 11px;font-size:.8rem;font-weight:600}
+
+/* Question */
+.why{font-size:.85rem;color:var(--ink-2);margin-bottom:14px}
+.why b{color:var(--accent)}
+.stem{font-size:1.15rem;font-weight:700;margin-bottom:16px;text-wrap:pretty}
+.vignette{background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:.95rem;margin-bottom:14px}
+.props{display:flex;flex-direction:column;gap:8px}
+.prop{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:start;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface);text-align:left;color:var(--ink);width:100%}
+.prop:hover{border-color:var(--ink-3)}
+.prop .k{font-family:var(--f-mono);width:24px;height:24px;border-radius:6px;border:1px solid var(--line);display:grid;place-items:center;font-size:.78rem}
+.prop.sel{border-color:var(--accent);background:var(--accent-soft)}
+.prop.sel .k{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.prop.done{cursor:default}
+.prop.good{border-color:var(--ok);background:var(--ok-soft)}
+.prop.miss{border-color:var(--bad);background:var(--bad-soft)}
+.prop .verdict{font-size:.75rem;font-weight:700;white-space:nowrap}
+.prop.good .verdict{color:var(--ok)}
+.prop.miss .verdict{color:var(--bad)}
+.result{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+.score{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.score .big{font-family:var(--f-mono);font-size:1.5rem}
+.source{border-left:3px solid var(--accent);background:var(--surface-2);padding:12px 14px;border-radius:0 10px 10px 0;font-size:.9rem}
+.source .ref{font-family:var(--f-mono);font-size:.75rem;color:var(--accent);margin-bottom:4px}
+.source mark{background:var(--accent-soft);color:inherit;padding:0 2px;border-radius:3px}
+.source .also{margin-top:8px;font-size:.8rem;color:var(--moodle)}
+.hint{font-size:.75rem;color:var(--ink-3);margin-top:16px}
+
+/* Maîtrise */
+.mastery{display:flex;flex-direction:column;gap:11px}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:5px 10px;align-items:center}
+.mrow .name{font-size:.85rem;min-width:0}
+.mrow .pct{text-align:right;font-family:var(--f-mono);font-size:.8rem}
+.bar{grid-column:1 / -1;height:5px;background:var(--surface-2);border-radius:3px;position:relative;overflow:hidden}
+.bar > span{position:absolute;inset:0 auto 0 0;border-radius:3px;transition:width .5s ease}
+.bar.tick::after{content:"";position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-3);left:var(--t)}
+.ch-title{font-size:.7rem;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.plan{margin:0;padding:0}
+.plan li{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.86rem}
+.plan li:first-child{border-top:0}
+.plan .d{font-family:var(--f-mono);color:var(--ink-3);font-size:.78rem;white-space:nowrap}
+
+/* Fil Moodle */
+.fi{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.fi:first-child{border-top:0;padding-top:0}
+.fi .ic{width:36px;height:36px;border-radius:10px;background:var(--moodle-soft);color:var(--moodle);display:grid;place-items:center;font-weight:800;font-size:.66rem}
+.fi .t{font-weight:600;font-size:.88rem}
+.fi .s{font-size:.76rem;color:var(--ink-3)}
+.fi .new{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:6px;vertical-align:2px}
+
+/* Réviser autrement */
+.sect{display:flex;align-items:baseline;gap:12px;margin:8px 0 14px}
+.sect h2{font-size:1.15rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.tile{background:var(--surface);border:0;border-radius:14px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;text-align:left;color:var(--ink);box-shadow:var(--shadow);min-height:150px;transition:transform .15s ease}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tile{border:1px solid var(--line)}}
+:root[data-theme="dark"] .tile{border:1px solid var(--line)}
+.tile:hover{transform:translateY(-2px)}
+.tile .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:.9rem;background:var(--accent-soft);color:var(--accent)}
+.tile.multi .ico{background:var(--gold-soft);color:var(--gold)}
+.tile b{font-size:1rem;font-family:var(--f-display)}
+.tile span.d{font-size:.78rem;color:var(--ink-3);margin-top:auto}
+.ltabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ltabs button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:600}
+.ltabs button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.ltabs button.add{border-style:dashed;color:var(--accent)}
+.league{width:100%;border-collapse:collapse;font-size:.88rem}
+.league td{padding:8px 6px;border-top:1px solid var(--line)}
+.league tr:first-child td{border-top:0}
+.league td.r{font-family:var(--f-mono);color:var(--ink-3);width:30px}
+.league td.p{font-family:var(--f-mono);text-align:right}
+.league tr.me td{background:var(--accent-soft);font-weight:700}
+.league tr.me td:first-child{border-radius:8px 0 0 8px}.league tr.me td:last-child{border-radius:0 8px 8px 0}
+.create{display:flex;flex-direction:column;gap:12px}
+.create input[type=text]{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 12px;width:100%}
+.code{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface-2);border-radius:10px;padding:12px 14px}
+.code .mono{font-size:1.3rem;letter-spacing:.12em}
+.days{display:flex;gap:6px}
+.days span{flex:1;max-width:38px;aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:.72rem;font-weight:700;background:var(--surface-2);color:var(--ink-3)}
+.days span.on{background:var(--accent);color:var(--on-accent)}
+.days span.rest{border:1px dashed var(--line);background:transparent}
+.ch-row{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.ch-row:first-child{border-top:0;padding-top:0}
+.av{width:34px;height:34px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:grid;place-items:center;font-weight:800;font-size:.72rem;flex:none}
+.switch{display:flex;gap:8px;align-items:center;font-size:.8rem;color:var(--ink-2)}
+.switch input{accent-color:var(--accent)}
+
+/* Validation */
+.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:700px){.parts{grid-template-columns:minmax(0,1fr)}}
+.part{display:flex;flex-direction:column;gap:12px}
+.part.locked{opacity:.6}
+.part ol{margin:0;padding-left:20px;font-size:.86rem;color:var(--ink-2)}
+.attempts{width:100%;border-collapse:collapse;font-size:.85rem}
+.attempts th{text-align:left;font-weight:700;color:var(--ink-3);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:6px 8px;white-space:nowrap}
+.attempts td{padding:9px 8px;border-top:1px solid var(--line)}
+.tablewrap{overflow-x:auto}
+.rules{display:flex;gap:28px;flex-wrap:wrap}
+.rules div .v{font-family:var(--f-mono);font-size:1.3rem}
+.mdline{display:flex;gap:10px;align-items:center;font-size:.85rem;margin-top:14px;color:var(--ink-2)}
+
+/* Enseignant */
+.pipeline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.82rem;margin-bottom:16px}
+.pipeline span{background:var(--surface-2);padding:6px 11px;border-radius:999px;font-weight:600}
+.pipeline span.md{background:var(--moodle-soft);color:var(--moodle)}
+.pipeline i{font-style:normal;color:var(--ink-3)}
+.res{width:100%;border-collapse:collapse;font-size:.85rem}
+.res td{padding:9px 6px;border-top:1px solid var(--line)}
+.res tr:first-child td{border-top:0}
+.queue{display:flex;flex-direction:column;gap:12px}
+.qcard{border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.qcard ol{margin:0;padding-left:22px;font-size:.86rem}
+.qcard ol li.t::marker{color:var(--ok);font-weight:700}
+.qcard .true{color:var(--ok);font-weight:700;font-size:.72rem;margin-left:6px}
+.slider{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:4px 12px;align-items:center}
+.slider label{font-size:.88rem}
+.slider output{font-family:var(--f-mono);text-align:right}
+.slider input{grid-column:1 / -1;width:100%;accent-color:var(--accent)}
+.sliders{display:flex;flex-direction:column;gap:16px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.86rem}
+.check input{accent-color:var(--accent);margin-top:3px}
+.kpis{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:18px}
+.kpis .v{font-family:var(--f-mono);font-size:1.4rem}
+.funnel{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:8px 0}
+.funnel span{display:block;height:100%}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.76rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+table.rank{width:100%;border-collapse:collapse;font-size:.85rem}
+table.rank td{padding:7px 4px;border-top:1px solid var(--line)}
+table.rank tr:first-child td{border-top:0}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;font-size:.85rem;margin:0}
+.kv dt{color:var(--ink-3)}
+.kv dd{margin:0}
+
+/* Tuteur */
+.chat{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.scope{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.msgs{display:flex;flex-direction:column;gap:14px;min-height:240px}
+.msg{max-width:88%;padding:12px 16px;border-radius:16px;font-size:.95rem;line-height:1.55}
+.msg.u{align-self:flex-end;background:var(--ink);color:var(--surface);border-bottom-right-radius:4px}
+.msg.b{align-self:flex-start;background:var(--surface);box-shadow:var(--shadow);border-bottom-left-radius:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .msg.b{border:1px solid var(--line)}}
+:root[data-theme="dark"] .msg.b{border:1px solid var(--line)}
+.msg.b mark{background:var(--accent-soft);color:inherit;padding:0 2px;border-radius:3px}
+.msg .srcs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.msg .srcs span{font-family:var(--f-mono);font-size:.72rem;padding:3px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.msg .srcs span.md{background:var(--moodle-soft);color:var(--moodle)}
+.msg .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.msg.none{background:var(--surface-2);box-shadow:none}
+.typing{display:inline-flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink-3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sugg button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:7px 13px;font-size:.84rem}
+.sugg button:hover{border-color:var(--accent);color:var(--accent)}
+.ask{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;background:var(--surface);border-radius:999px;padding:6px 6px 6px 18px;box-shadow:0 2px 6px rgba(40,10,20,.08),0 10px 30px rgba(40,10,20,.08);border:1px solid var(--line)}
+.ask input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);outline:none;font-size:.95rem}
+.empty{text-align:center;padding:24px 0 8px}
+.empty h2{font-size:1.6rem;font-weight:800}
+.empty p{color:var(--ink-2);margin-top:6px}
+.faq{margin:0;padding:0}
+.faq li{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.86rem}
+.faq li:first-child{border-top:0}
+
+/* ===== Mode concentration ===== */
+body.focusing .app{display:none}
+#focus{min-height:100vh;background:var(--bg);display:flex;flex-direction:column}
+.fbar{position:sticky;top:0;z-index:5;background:var(--bg)}
+.fbar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px;padding-block:14px}
+.fbar .t{font-size:.82rem;color:var(--ink-3);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;max-width:40%}
+.fbar .prog{flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden;min-width:40px}
+.fbar .prog span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.fbar .c{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-3);white-space:nowrap}
+.fbar button{border:0;background:transparent;color:var(--ink-3);font-size:1.1rem;width:34px;height:34px;border-radius:50%}
+.fbar button:hover{background:var(--surface-2);color:var(--ink)}
+.fbody{max-width:720px;width:100%;margin:0 auto;padding-block:20px 80px}
+.fcard{background:var(--surface);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+@media (max-width:500px){.fcard{padding:18px}}
+.recap{text-align:left}
+.recap h2{font-size:1.7rem;font-weight:800;margin-bottom:4px}
+.recap .rows{margin:18px 0}
+.recap .rows div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:.9rem}
+.pts{font-family:var(--f-mono);color:var(--gold)}
+
+/* Jeux */
+.flash-card{perspective:1200px;cursor:pointer;margin:0 0 18px}
+.flash-inner{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
+.flash-card.flip .flash-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;background:var(--surface);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px;gap:10px}
+.face.back{transform:rotateY(180deg);background:#8a1538;color:#fff}
+.face.back .label{color:rgba(255,255,255,.7)}
+.face .term{font-family:var(--f-display);font-size:2.2rem;font-weight:800}
+.face .def{font-size:1.05rem;max-width:42ch}
+.tf{text-align:center;padding:20px 0 0}
+.tf .stmt{font-size:1.4rem;font-weight:700;min-height:3.4em;display:flex;align-items:center;justify-content:center;text-wrap:balance}
+.tf .btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.tf .btns button{padding:18px;border-radius:14px;font-weight:800;font-size:1.05rem;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.tf .btns button.v:hover{border-color:var(--ok);color:var(--ok)}
+.tf .btns button.f:hover{border-color:var(--bad);color:var(--bad)}
+.tf.okf .stmt{color:var(--ok)}
+.tf.badf .stmt{color:var(--bad)}
+.lives{font-size:1.1rem;letter-spacing:.15em;color:var(--accent)}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.match button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px;text-align:left;font-weight:600;min-height:50px}
+.match button.sel{border-color:var(--accent);background:var(--accent-soft)}
+.match button.done{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);cursor:default}
+.match button.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.memory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.memory{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.memory button{aspect-ratio:1;border:0;border-radius:12px;background:#8a1538;color:transparent;font-weight:700;font-size:.82rem;padding:8px;display:grid;place-items:center;text-align:center;line-height:1.2}
+.memory button.up{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.memory button.found{background:var(--ok-soft);color:var(--ok);box-shadow:none;cursor:default}
+.order{margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:8px}
+.order li{list-style:none;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface)}
+.order li .n{font-family:var(--f-mono);color:var(--ink-3)}
+.order li.good{border-color:var(--ok);background:var(--ok-soft)}
+.order li.miss{border-color:var(--bad);background:var(--bad-soft)}
+.order .mv{display:flex;gap:4px}
+.order .mv button{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.clues{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.clue{background:var(--surface-2);padding:12px 14px;border-radius:10px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.opts button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:14px;font-weight:700;text-align:left}
+.opts button.good{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.opts button.miss{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center;margin:18px 0}
+.vs .s{font-family:var(--f-mono);font-size:2.2rem}
+/* Multijoueur */
+.lobby{display:flex;flex-direction:column;gap:18px;text-align:center;align-items:center}
+.lobby .mono.code{font-size:2.4rem;letter-spacing:.14em;color:var(--accent)}
+.players{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.players span{padding:6px 12px;border-radius:999px;background:var(--surface-2);font-weight:600;font-size:.85rem;animation:pop .3s ease}
+.players span.me{background:var(--accent);color:var(--on-accent)}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.team{border-radius:14px;padding:14px;background:var(--surface-2);text-align:left}
+.team.mine{background:var(--accent-soft)}
+.team b{display:block;margin-bottom:8px}
+.team .players{justify-content:flex-start}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+.qtimer{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:18px}
+.qtimer span{display:block;height:100%;background:var(--gold);transition:width 1s linear}
+.board{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.board div{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--surface-2)}
+.board div.me{background:var(--accent-soft);font-weight:700}
+.board .mono{text-align:right}
+
+.toast{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--surface);padding:12px 16px;border-radius:12px;font-size:.86rem;max-width:min(360px,calc(100vw - 32px));z-index:20}
+.toast b{display:block}
+footer.note{font-size:.75rem;color:var(--ink-3);padding-block:0 32px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== DA du site de l'UFR : blanc, angles droits, filets noirs, titres légers, boutons pilule « › » ===== */
+:root{--bg:#ffffff;--surface:#ffffff;--surface-2:#f4f2f2;--line:#dcd6d7;--shadow:none}
+body{font-size:16px}
+h1{font-weight:300;font-size:2.9rem;letter-spacing:-.01em;line-height:1.1}
+.view-head{align-items:flex-start;margin-bottom:34px}
+.view-head .label{display:none}
+.view-head h1::after{content:"";display:block;width:170px;height:1px;background:var(--ink-3);margin-top:26px}
+.view-head p{margin-top:16px;font-size:1.05rem}
+.vh-img{width:min(360px,100%);aspect-ratio:16/9;object-fit:cover;display:block}
+header.top{border-top:0;box-shadow:0 1px 0 var(--line)}
+.top-inner{padding-block:10px 0;align-items:flex-end}
+.brand{flex-direction:row;align-items:center;gap:14px;padding-bottom:12px}
+.brand img{height:56px;width:auto;display:block;background:#fff}
+.brand .prod{border-left:1px solid var(--line);padding-left:14px;font-family:var(--f-display);font-weight:800;font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+nav.tabs{border-top:2px solid var(--ink);gap:0 22px;padding-top:4px}
+nav.tabs a{padding:10px 0 12px;color:var(--ink);font-weight:700;font-size:1rem;border-bottom:0}
+nav.tabs a[aria-current="page"]{color:var(--accent)}
+nav.tabs a:hover{color:var(--accent)}
+.lock{padding-bottom:14px}
+.panel,.part{background:transparent!important;border:0!important;border-top:2px solid var(--ink)!important;border-radius:0;box-shadow:none;padding:16px 0 0}
+.panel-head h3,.sect h2{font-weight:700;font-size:1.25rem}
+.btn{font-weight:500}
+.btn.primary,.btn.cta{padding:10px 20px}
+.cta::after{content:"  ›";white-space:pre}
+.btn.lg{font-size:1.1rem;padding:13px 26px}
+.prop,.match button,.opts button,.order li,.memory button,.face,.clue,.vignette,.source,.code,.team,.board div,.qcard,.days span,.fcard,.tile,.tile .ico,.fi .ic,.create input[type=text],.msg,.league tr.me td,.funnel,.vh-img,.tf .btns button{border-radius:0!important}
+.fcard{border:1px solid var(--line);box-shadow:none}
+.tile{background:var(--surface-2);box-shadow:none!important;border:0!important;border-bottom:2px solid transparent!important;min-height:136px}
+.tile:hover{transform:none;border-bottom-color:var(--accent)!important}
+.tile .ico{background:var(--surface);color:var(--accent)}
+.msg.b{box-shadow:none;border:1px solid var(--line)}
+.msg.u{background:var(--accent);color:#fff}
+.ask{box-shadow:none;border:1px solid var(--ink)}
+/* Bloc série du jour : photo + texte, comme les cartes du site */
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:stretch;border-bottom:1px solid var(--ink);padding-bottom:28px}
+@media (max-width:700px){.feature{grid-template-columns:minmax(0,1fr)}}
+.feature img{width:100%;height:100%;min-height:220px;object-fit:cover;display:block}
+.feature .txt{display:flex;flex-direction:column;gap:16px;justify-content:center}
+.feature h2{font-size:1.9rem;font-weight:700}
+.feature .tgt{color:var(--ink-2)}
+.feature .tgt b{color:var(--accent)}
+.feature .stats{display:flex;gap:26px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-3)}
+.feature .stats b{display:block;font-family:var(--f-mono);font-weight:500;font-size:1.05rem;color:var(--ink)}
+/* Cartes illustrées (à plusieurs) */
+.icards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:860px){.icards{grid-template-columns:minmax(0,1fr)}}
+.icard{display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:22px;min-width:0}
+.icard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.icard h3{font-size:1.35rem;font-weight:700}
+.icard p{color:var(--ink-2);font-size:.92rem}
+.chat .empty{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:center;text-align:left}
+@media (max-width:560px){.chat .empty{grid-template-columns:minmax(0,1fr)}}
+.chat .empty img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.chat .empty h2{font-weight:300;font-size:2.2rem}
+.scope{justify-content:flex-start}
+.sugg{justify-content:flex-start}
+
+/* ===== Bandeau démo ===== */
+.demo-strip{background:var(--ink);color:#fff;font-size:.74rem;line-height:1.35;padding-block:6px;text-align:center}
+.demo-strip a{color:#fff;font-weight:700}
+.dberr{max-width:640px;margin:80px auto;padding:24px;border:2px solid var(--accent);font-family:var(--f-body)}
+
+/* ===== Correction item par item ===== */
+.prop .iexp{display:block;margin-top:6px;font-size:.86rem;color:var(--ink-2);font-weight:400}
+.prop .cours{border:0;background:none;padding:0;margin-top:6px;color:var(--accent);font-weight:700;font-size:.8rem;text-decoration:underline;text-underline-offset:2px;display:inline-block}
+.prop .cours:hover{color:var(--accent-2)}
+div.prop{cursor:default}
+
+/* ===== Fiche de cours (zoom sur une sous-partie) ===== */
+#sheet{position:fixed;inset:0;z-index:30;background:rgba(18,18,18,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+#sheet .in{background:var(--surface);max-width:640px;width:100%;max-height:min(82vh,720px);overflow:auto;padding:24px;border-top:4px solid var(--accent)}
+#sheet .ref{font-family:var(--f-mono);font-size:.75rem;color:var(--accent)}
+#sheet h3{font-size:1.35rem;margin:6px 0 14px;font-weight:700}
+#sheet p{margin:0 0 10px;font-size:.98rem;line-height:1.6;color:var(--ink-2);padding:4px 8px;border-left:3px solid transparent}
+#sheet p.hl{background:var(--accent-soft);color:var(--ink);border-left-color:var(--accent)}
+#sheet .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+@media (max-width:600px){#sheet{align-items:flex-end;padding:0}#sheet .in{max-height:85vh;padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px))}}
+.srcbtn{border:0;cursor:pointer}
+
+/* ===== Base de données ===== */
+.dbbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.dbbar select,.dbbar input{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 12px;font:inherit;font-size:.9rem;min-width:0}
+.dbbar input{flex:1 1 220px}
+.dbq{border-top:1px solid var(--line);padding:12px 0}
+.dbq summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:start}
+.dbq summary::-webkit-details-marker{display:none}
+.dbq summary .meta{font-size:.75rem;color:var(--ink-3);grid-column:1/-1}
+.dbq summary b{font-weight:600}
+.dbq .items{margin:12px 0 4px;padding:0;display:flex;flex-direction:column;gap:8px}
+.dbq .items li{list-style:none;display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;font-size:.88rem}
+.dbq .items .v{font-family:var(--f-mono);font-weight:700}
+.dbq .items .v.t{color:var(--ok)}.dbq .items .v.f{color:var(--bad)}
+.dbq .items small{display:block;color:var(--ink-3)}
+.dbsec{border-top:1px solid var(--line);padding:10px 0}
+.dbsec summary{cursor:pointer;font-weight:600}
+.dbsec ol{margin:8px 0 0;padding-left:22px;font-size:.88rem;color:var(--ink-2)}
+.note-prod{background:var(--surface-2);padding:14px 16px;font-size:.88rem;color:var(--ink-2);margin-top:14px}
+
+/* ===== Mobile ===== */
+@media (max-width:760px){
+  h1{font-size:2.1rem}
+  .top-inner{gap:0}
+  .brand{padding-bottom:8px}
+  .brand img{height:40px}
+  .lock{display:none}
+  nav.tabs{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;gap:0 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs a{white-space:nowrap;font-size:.95rem}
+  .vh-img{display:none}
+  .feature img{min-height:160px;max-height:200px}
+  main{padding-block:22px 48px}
+  .view-head{margin-bottom:22px}
+  .view-head h1::after{margin-top:16px;width:120px}
+  .fbar .t{max-width:30%}
+  .prop{padding:12px}
+  .attempts{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+<header class="top">
+  <div class="demo-strip gutter">Démonstration ceepia, non officielle · contenus fictifs non validés par la faculté · données simulées · <a href="#base">Voir la base de contenus</a></div>
+  <div class="wrap top-inner gutter">
+    <div class="brand"><img src="assets/logo.jpg" alt="Médecine · Santé · Université Paris Cité" width="138" height="44"><span class="prod">Chevet</span></div>
+    <nav class="tabs" aria-label="Vues">
+      <a href="#entrainement" data-view="entrainement">Entraînement</a>
+      <a href="#autrement" data-view="autrement">Réviser autrement</a>
+      <a href="#tuteur" data-view="tuteur">Tuteur</a>
+      <a href="#validation" data-view="validation">Validation</a>
+      <a href="#enseignant" data-view="enseignant">Enseignant</a>
+      <a href="#base" data-view="base">Base de contenus</a>
+    </nav>
+    <span class="lock" title="Questions issues uniquement de la base de contenus de la faculté"><i></i>Système fermé</span>
+  </div>
+</header>
+
+<main class="gutter">
+<div class="wrap">
+
+<!-- ============ ENTRAÎNEMENT ============ -->
+<section data-section="entrainement">
+  <div class="view-head">
+    <div><span class="label">Immunologie · DFGSM2</span><h1>Entraînement</h1><p>Au format de l'épreuve.</p></div>
+  </div>
+  <div class="grid">
+    <div class="stack">
+      <div class="feature">
+        <img src="assets/photo-revision.jpg" alt="Étudiants en train de réviser">
+        <div class="txt">
+          <span class="label">Série du jour</span>
+          <h2>10 QRM · 15 min</h2>
+          <p class="tgt" id="target"></p>
+          <div class="seg" role="group" aria-label="Sur quoi" style="align-self:flex-start">
+            <button id="m-auto" aria-pressed="true">Mes points faibles</button>
+            <button id="m-chap" aria-pressed="false">Chapitres choisis</button>
+          </div>
+          <div class="chaps" id="chaps" hidden></div>
+          <div><button class="btn primary lg cta" id="go">Commencer</button></div>
+          <div class="stats" id="stats"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Nouveau sur Moodle</h3><span class="chip md">Moodle</span></div>
+        <div id="feed"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <div class="panel-head"><h3>Ma maîtrise</h3><span class="small muted mono" id="cover"></span></div>
+        <div class="mastery" id="mastery"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>À revoir</h3></div>
+        <ul class="plan" id="plan"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RÉVISER AUTREMENT ============ -->
+<section data-section="autrement" hidden>
+  <div class="view-head">
+    <div><span class="label">Mêmes notions, autres formats</span><h1>Réviser autrement</h1></div>
+    <span class="chip gold" id="mypts"></span>
+  </div>
+
+  <div class="sect"><h2>Seul</h2><span class="small muted">Quelques minutes, entre deux cours</span></div>
+  <div class="tiles" id="solo"></div>
+
+  <div class="sect between row" style="margin-top:36px"><div class="row"><h2>À plusieurs</h2><span class="small muted">Avec la promo ou entre amis</span></div><button class="btn sm" data-g="room">+ Créer un salon</button></div>
+  <div class="icards">
+    <div class="icard"><img src="assets/photo-quiz.jpg" alt=""><h3>Quiz en direct</h3><p>Un code, jusqu'à 30 joueurs, 15 secondes par question.</p><div><button class="btn primary cta" data-g="live">Rejoindre</button></div></div>
+    <div class="icard"><img src="assets/photo-equipes.jpg" alt=""><h3>Équipe contre équipe</h3><p>En ED, l'enseignant lance le défi : groupe contre groupe sur le cours à préparer.</p><div><button class="btn primary cta" data-g="teams">Jouer</button></div></div>
+    <div class="icard"><img src="assets/photo-duel.jpg" alt=""><h3>Duel</h3><p>Les mêmes 5 QRM qu'un ami, chacun à son rythme.</p><div><button class="btn primary cta" data-g="duel">Défier</button></div></div>
+  </div>
+  <div id="multi" hidden></div>
+
+  <div class="grid" style="margin-top:28px">
+    <div class="panel">
+      <div class="panel-head"><h3>Ligues</h3><label class="switch"><input type="checkbox" id="leagueon" checked> Participer</label></div>
+      <div class="ltabs" id="ltabs"></div>
+      <div id="lbody"></div>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <div class="panel-head"><h3>Régularité</h3><span class="chip acc">5 jours</span></div>
+        <div class="days" id="days"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Défi de la promo</h3><span class="mono small" id="promotxt"></span></div>
+        <div class="bar"><span id="promobar" style="background:var(--gold)"></span></div>
+        <p class="small muted" style="margin-top:8px">50 000 questions avant dimanche, tous ensemble.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Défis reçus</h3></div>
+        <div class="ch-row"><span class="av">LL</span><div style="flex:1;min-width:0"><b class="small">Lympho_Lune</b><div class="small muted">Chap. 3 · à battre : 3,7 / 5</div></div><button class="btn sm primary" id="acc">Relever</button></div>
+        <div class="ch-row"><span class="av">OP</span><div style="flex:1;min-width:0"><b class="small">Opsonine</b><div class="small muted">Vrai ou faux · à battre : 14</div></div><button class="btn sm" id="acc2">Relever</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TUTEUR ============ -->
+<section data-section="tuteur" hidden>
+  <div class="chat">
+    <div class="empty" id="chatempty">
+      <img src="assets/photo-tuteur.jpg" alt="">
+      <div><span class="label">Cours déposés par la faculté</span><h2>Posez votre question</h2><p>Réponses tirées uniquement de la base de contenus de la faculté, avec leurs sources. Rien ne vient d'internet.</p></div>
+    </div>
+    <div class="scope" role="group" aria-label="Périmètre">
+      <div class="seg"><button data-sc="all" aria-pressed="true">Tous les cours</button><button data-sc="immuno" aria-pressed="false">Immunologie</button><button data-sc="ref" aria-pressed="false">Référentiel seul</button></div>
+    </div>
+    <div class="msgs" id="msgs"></div>
+    <div class="sugg" id="sugg"></div>
+    <form class="ask" id="askf" autocomplete="off"><input id="askin" type="text" placeholder="Ex. : quelle différence entre CMH I et CMH II ?" aria-label="Votre question"><button class="btn primary" type="submit">Envoyer</button></form>
+  </div>
+</section>
+
+<!-- ============ VALIDATION ============ -->
+<section data-section="validation" hidden>
+  <div class="view-head">
+    <div><span class="label">Partie 1 · Immunologie fondamentale</span><h1>Validation</h1><p>Autant de passages que nécessaire.</p></div>
+    <img class="vh-img" src="assets/photo-validation.jpg" alt="">
+  </div>
+  <div class="stack">
+    <div class="panel"><div class="rules" id="rules"></div></div>
+    <div class="parts" id="parts"></div>
+    <div class="panel" id="exam"></div>
+    <div class="panel">
+      <div class="panel-head"><h3>Mes passages</h3><span class="chip md">Carnet de notes Moodle</span></div>
+      <div class="tablewrap"><table class="attempts" id="attempts"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENSEIGNANT ============ -->
+<section data-section="enseignant" hidden>
+  <div class="view-head">
+    <div><span class="label">Équipe pédagogique</span><h1>Espace enseignant</h1><p>Rien n'est publié sans relecture.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>Source des cours</h3>
+      <div class="seg" role="group" aria-label="Source des cours"><button data-src="moodle" aria-pressed="true">Moodle</button><button data-src="direct" aria-pressed="false">Dépôt direct</button></div></div>
+    <div class="pipeline" id="pipeline"></div>
+    <div class="tablewrap"><table class="res" id="resources"></table></div>
+  </div>
+  <div class="grid" style="margin-top:20px">
+    <div class="stack">
+      <div class="panel">
+        <div class="panel-head"><h3>À relire</h3><span class="chip" id="bankcount"></span></div>
+        <div class="queue" id="queue"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Promotion</h3><span class="label">812 étudiants · simulé</span></div>
+        <div class="kpis">
+          <div><div class="label">Actifs</div><div class="v">634</div></div>
+          <div><div class="label">Questions</div><div class="v">48 210</div></div>
+          <div><div class="label">Partie 1 validée</div><div class="v">58 %</div></div>
+        </div>
+        <div class="funnel" role="img" aria-label="31 % au 1er passage, 18 % au 2e, 9 % au 3e ou plus, 42 % pas encore">
+          <span style="width:31%;background:var(--accent)"></span><span style="width:18%;background:color-mix(in srgb,var(--accent) 60%,var(--surface))"></span><span style="width:9%;background:color-mix(in srgb,var(--accent) 30%,var(--surface))"></span><span style="width:42%;background:var(--surface-2)"></span>
+        </div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>1ᵉʳ passage</span><span><i style="background:color-mix(in srgb,var(--accent) 60%,var(--surface))"></i>2ᵉ</span><span><i style="background:color-mix(in srgb,var(--accent) 30%,var(--surface))"></i>3ᵉ et +</span><span><i style="background:var(--surface-2)"></i>Pas encore</span></div>
+        <div class="label" style="margin:22px 0 10px">À reprendre en ED</div>
+        <div class="mastery" id="cohort"></div>
+        <div class="row" style="margin-top:16px"><button class="btn sm" id="sendmsg">Rappel ciblé via Moodle</button><button class="btn sm" id="amphi">Quiz en direct en amphi</button></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <div class="panel-head"><h3>Règles de validation</h3></div>
+        <div class="sliders">
+          <div class="slider"><label for="s-global">Seuil global</label><output id="o-global"></output><input type="range" id="s-global" min="50" max="95" step="5"></div>
+          <div class="slider"><label for="s-chap">Minimum par chapitre</label><output id="o-chap"></output><input type="range" id="s-chap" min="30" max="90" step="5"></div>
+          <div class="slider"><label for="s-n">Questions</label><output id="o-n"></output><input type="range" id="s-n" min="20" max="80" step="10"></div>
+          <div class="slider"><label for="s-delay">Délai entre passages</label><output id="o-delay"></output><input type="range" id="s-delay" min="0" max="168" step="24"></div>
+          <label class="check"><input type="checkbox" id="c-lock" checked> <span>Partie 2 verrouillée jusqu'à validation</span></label>
+          <label class="check"><input type="checkbox" id="c-grade" checked> <span>Résultat dans le carnet Moodle</span></label>
+          <label class="check"><input type="checkbox" id="c-league" checked> <span>Ligues et défis proposés</span></label>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Questions au tuteur</h3><span class="label">Cette semaine</span></div>
+        <ul class="faq"><li><span>Différence CMH I / CMH II</span><span class="mono muted">212</span></li><li><span>Rôle de la chaîne invariante</span><span class="mono muted">147</span></li><li><span>Sélection positive ou négative ?</span><span class="mono muted">131</span></li><li><span>Sans réponse dans les cours</span><span class="mono" style="color:var(--warn)">18</span></li></ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Confidentialité et réversibilité</h3></div>
+        <dl class="kv">
+          <dt>Hébergement</dt><dd>Serveurs de l'université ou hébergeur européen, au choix de la faculté</dd>
+          <dt>Modèle</dt><dd>Modèle hébergé chez vous, ou offre entreprise européenne (ex. Mistral)</dd>
+          <dt>Entraînement</dt><dd>Vos contenus ne servent jamais à entraîner un modèle</dd>
+          <dt>Données</dt><dd>Propriété de la faculté, exportables à tout moment</dd>
+          <dt>Accès</dt><dd>Comptes université</dd>
+          <dt>Référentiel</dt><dd>Jamais téléchargeable par les étudiants</dd>
+          <dt>Réversibilité</dt><dd>Code et documentation remis à la DSI de l'université</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BASE DE CONTENUS ============ -->
+<section data-section="base" hidden>
+  <div class="view-head">
+    <div><span class="label">Ce que l'outil utilise, et rien d'autre</span><h1>Base de contenus</h1><p>Chaque question, chaque correction et chaque réponse du tuteur provient de cette base. L'outil la charge au démarrage.</p></div>
+  </div>
+  <div class="panel">
+    <div class="kpis" id="dbkpis"></div>
+    <div class="row">
+      <a class="btn" href="data/base.json" target="_blank" rel="noopener">Ouvrir le fichier brut (JSON)</a>
+      <button class="btn" id="dbcsv">Exporter les questions (CSV)</button>
+    </div>
+    <p class="note-prod" id="dbnote"></p>
+  </div>
+  <div class="panel" style="margin-top:24px">
+    <div class="panel-head"><h3>Questions</h3><span class="small muted" id="dbcount"></span></div>
+    <div class="dbbar">
+      <select id="dbch" aria-label="Chapitre"></select>
+      <select id="dbst" aria-label="Statut"><option value="">Tous les statuts</option><option value="validee">Validées</option><option value="a_relire">À relire</option></select>
+      <input id="dbq" type="search" placeholder="Rechercher un mot (ex. : CD25, placenta)" aria-label="Rechercher">
+    </div>
+    <div id="dblist"></div>
+  </div>
+  <div class="panel" style="margin-top:24px">
+    <div class="panel-head"><h3>Référentiel</h3><span class="small muted" id="dbrefcount"></span></div>
+    <div id="dbref"></div>
+  </div>
+</section>
+</div>
+</main>
+<footer class="note gutter"><div class="wrap">Maquette ceepia, non officielle. Contenus d'immunologie rédigés par ceepia pour l'illustration, non validés par la faculté ; chiffres et pseudonymes simulés. En production, l'outil n'utilise que les contenus de la faculté.</div></footer>
+</div>
+
+<!-- ============ FICHE DE COURS ============ -->
+<div id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-t"><div class="in" id="sheet-in"></div></div>
+
+<!-- ============ MODE CONCENTRATION ============ -->
+<div id="focus" hidden>
+  <div class="fbar gutter"><div class="in">
+    <span class="t" id="ftitle"></span>
+    <div class="prog"><span id="fprog" style="width:0"></span></div>
+    <span class="c" id="fcount"></span>
+    <button id="fquit" title="Quitter (Échap)" aria-label="Quitter">✕</button>
+  </div></div>
+  <div class="fbody gutter" id="fbody"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(async function(){
+"use strict";
+
+/* ================= Chargement de la base de contenus ================= */
+let DB;
+try{const r=await fetch("data/base.json",{cache:"no-cache"});if(!r.ok)throw new Error(r.status);DB=await r.json();}
+catch(err){document.body.innerHTML=`<div class="dberr"><h2>Base de contenus introuvable</h2><p style="margin-top:10px">La démonstration charge ses contenus depuis <code>data/base.json</code>. Ouvrez-la depuis son adresse en ligne plutôt qu'en double-cliquant sur le fichier.</p></div>`;return;}
+
+const CHAPTERS=DB.chapitres.map(c=>({id:c.id,part:c.partie,n:c.numero,title:c.titre}));
+const NOTIONS=DB.notions.map(n=>({id:n.id,ch:n.chapitre,label:n.libelle,m:n.maitrise_demo}));
+const SECTIONS=Object.fromEntries(DB.referentiel.map(r=>[r.section,r]));
+const toQ=q=>({id:q.id,notion:q.notion,ext:!!q.approfondissement,vignette:q.vignette||null,stem:q.enonce,statut:q.statut,origine:q.origine,
+  props:q.items.map(it=>[it.texte,it.reponse?1:0,it.explication,it.section,it.passage]),
+  src:{ref:q.reference,text:q.synthese_html,also:q.moodle||null}});
+const ALLQ=DB.questions.map(toQ);
+const Q=ALLQ.filter(q=>q.statut==="validee");           // seules les questions validées sont proposées aux étudiants
+const CARDS=DB.flashcards.map(c=>[c.recto,c.verso,c.notion]);
+const TF=DB.vrai_faux.map(t=>[t.affirmation,t.reponse?1:0]);
+const PAIRS=DB.associations.map(a=>[a.gauche,a.droite]);
+const ORDER=DB.remise_en_ordre.etapes;
+const RIDDLES=DB.enigmes.map(e=>({clues:e.indices,opts:e.choix,a:e.reponse}));
+const LIVEQ=DB.quiz_direct.map(x=>[x.question,x.choix,x.reponse]);
+const SOLO=[
+  {id:"flash",ico:"FC",name:"Flashcards",d:"3 min"},
+  {id:"tf",ico:"V/F",name:"Vrai ou faux",d:"60 secondes"},
+  {id:"survie",ico:"♥♥♥",name:"Survie",d:"Jusqu'à 3 erreurs"},
+  {id:"memory",ico:"▦",name:"Memory",d:"6 paires"},
+  {id:"match",ico:"↔",name:"Associations",d:"8 paires"},
+  {id:"order",ico:"1→6",name:"Remettre dans l'ordre",d:"1 mécanisme"},
+  {id:"riddle",ico:"?",name:"Qui suis-je ?",d:"3 énigmes"}
+];
+const MULTI=[
+  {id:"live",ico:"LIVE",name:"Quiz en direct",d:"Jusqu'à 30 joueurs"},
+  {id:"teams",ico:"2v2",name:"Équipe contre équipe",d:"Groupes d'ED"},
+  {id:"duel",ico:"VS",name:"Duel",d:"5 QRM, à son rythme"},
+  {id:"room",ico:"+",name:"Créer un salon",d:"Code à partager"}
+];
+const FEED=[
+  {type:"VID",title:"CM 7 · Présentation de l'antigène",sub:"Il y a 2 h",ch:"c3",isNew:true},
+  {type:"PDF",title:"ED 3 · Sélection thymique",sub:"Hier",ch:"c4",isNew:true},
+  {type:"PDF",title:"Référentiel · chapitre 5 mis à jour",sub:"Il y a 4 jours",ch:"c5",isNew:false}
+];
+const PUBLIC=[["Lympho_Lune",1340],["CD4_Patrouille",1205],["Opsonine",1110],["Thymus_Express",1020],["Dr_Complément",960],["Macrophage_Zen",0,1],["Plasmocyte42",840],["Interféron_Gamma",790]];
+const FRIENDS=[["Inès",1180],["Macrophage_Zen",0,1],["Hugo",870],["Sarah",820],["Tom",640],["Léa",410]];
+const BOTS=["Lympho_Lune","Opsonine","CD4_Patrouille","Thymus_Express","Plasmocyte42","Interféron_Gamma","Dr_Complément"];
+
+/* ================= État ================= */
+const DAY=864e5,now=Date.now();
+const isoWeek=(d=>{d=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);const y0=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil(((d-y0)/DAY+1)/7);})(new Date());
+const notionCh=id=>NOTIONS.find(n=>n.id===id).ch;
+const state={
+  mastery:Object.fromEntries(NOTIONS.map(n=>[n.id,n.m])),
+  due:{n5:now-2*DAY,n6:now-DAY,n4:now,n9:now+DAY,n10:now+2*DAY,n11:now+2*DAY,n3:now+3*DAY,n7:now+5*DAY,n2:now+6*DAY,n12:now+7*DAY,n13:now+8*DAY,n1:now+9*DAY,n8:now+11*DAY},
+  lastErr:{n5:2,n6:1,n4:3,n9:4},seen:new Set(["q9","q7","q3","q4"]),
+  mode:"auto",chaps:new Set(["c1","c2","c3","c4","c5","c6"]),
+  current:null,selected:new Set(),answered:false,lastQ:null,answeredCount:0,prevM:0,
+  series:null,lastSeries:{score:6.4,n:10},points:905,promo:38412,
+  leagues:[{id:"pub",name:"Semaine "+isoWeek,rows:PUBLIC},{id:"fr",name:"Les Lymphos",rows:FRIENDS,code:"LYMPH-7K2"}],league:"pub",creating:false,
+  cfg:{global:75,chap:60,n:40,delay:72},
+  attempts:[{date:"12 oct.",score:61,ch:{c1:78,c2:70,c3:38,c4:55,c5:72,c6:60}},{date:"26 oct.",score:72,ch:{c1:84,c2:76,c3:58,c4:66,c5:79,c6:68}}],
+  part2:false,exam:null,examResult:null,timers:[],
+  queue:ALLQ.filter(q=>q.statut==="a_relire").map(q=>({id:q.id,ch:notionCh(q.notion),from:q.origine,status:"todo",stem:q.stem,props:q.props,q})),
+  source:"moodle",
+  bank:{total:312,validated:188}
+};
+
+const $=s=>document.querySelector(s);
+const pct=x=>Math.round(x*100);
+const notion=id=>NOTIONS.find(n=>n.id===id);
+const chapter=id=>CHAPTERS.find(c=>c.id===id);
+const color=m=>m>=.7?"var(--ok)":m>=.5?"var(--accent)":"var(--warn)";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmtN=n=>n.toLocaleString("fr-FR");
+const dec=x=>x.toFixed(1).replace(".",",");
+let toastT;
+function toast(t,b){const el=$("#toast");el.innerHTML=`<b>${esc(t)}</b>${esc(b)}`;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,3800);}
+function scoreOf(q,sel){let d=0;q.props.forEach((p,i)=>{if(!!p[1]!==sel.has(i))d++;});return {d,s:d===0?1:d===1?.5:d===2?.2:0};}
+function rel(t){const d=Math.round((t-now)/DAY);if(d<0)return "en retard";if(d===0)return "aujourd'hui";if(d===1)return "demain";return "dans "+d+" j";}
+function addPoints(p,n){state.points+=p;state.promo+=n||0;}
+function bump(nid,s,w){const m=state.mastery[nid];state.mastery[nid]=Math.max(0,Math.min(1,m+(w||.2)*(s-m)));}
+function later(fn,ms){const t=setTimeout(fn,ms);state.timers.push(t);return t;}
+function every(fn,ms){const t=setInterval(fn,ms);state.timers.push(t);return t;}
+
+/* ================= Mode concentration ================= */
+let onKey=null;
+const F={
+  open(title){document.body.classList.add("focusing");$("#focus").hidden=false;$("#ftitle").textContent=title;F.prog(0,"");window.scrollTo(0,0);},
+  prog(p,txt){$("#fprog").style.width=Math.round(p*100)+"%";$("#fcount").textContent=txt||"";},
+  close(){state.timers.forEach(t=>{clearTimeout(t);clearInterval(t);});state.timers=[];onKey=null;state.exam=null;state.series=null;
+    document.body.classList.remove("focusing");$("#focus").hidden=true;$("#fbody").innerHTML="";refreshDash();},
+  body(h){$("#fbody").innerHTML=h;}
+};
+$("#fquit").addEventListener("click",()=>F.close());
+document.addEventListener("keydown",e=>{if($("#focus").hidden)return;if(e.key==="Escape"){F.close();return;}if(onKey)onKey(e);});
+
+/* ================= Série de QRM ================= */
+function pickNext(){
+  let best=null,bestS=-1;
+  for(const q of Q){
+    if(q.id===state.lastQ)continue;
+    if(state.series&&state.series.done.has(q.id))continue;
+    if(state.mode==="chap"&&!state.chaps.has(notion(q.notion).ch))continue;
+    const m=state.mastery[q.notion],due=state.due[q.notion]??now;let s;
+    if(q.ext){if(m<.78)continue;s=.55-(state.seen.has(q.id)?.4:0);}
+    else{const od=Math.max(0,(now-due)/DAY);s=(1-m)+Math.min(.3,od*.1)+(due<=now?.15:0);}
+    if(s>bestS){bestS=s;best=q;}
+  }
+  if(!best)return null;
+  const n=notion(best.notion),m=state.mastery[best.notion];
+  const why=best.ext?`<b>Approfondissement</b> · ${esc(n.label)} est acquise`:`<b>Ciblé</b> · ${esc(n.label)} · ${pct(m)} %`;
+  return {q:best,why};
+}
+const inScope=q=>state.mode!=="chap"||state.chaps.has(notion(q.notion).ch);
+function startSeries(o){
+  o=o||{};
+  const avail=o.fixed?o.fixed.length:Q.filter(q=>!q.ext&&inScope(q)).length;
+  state.series={n:Math.max(1,Math.min(o.n||10,avail)),i:0,res:[],done:new Set(),fixed:o.fixed||null,duel:o.duel||null,start:{...state.mastery}};
+  state.lastQ=null;F.open(o.title||"Série de QRM");loadQuestion();
+}
+function loadQuestion(){const S=state.series;state.current=S.fixed?{q:S.fixed[S.i],why:"<b>Duel</b> · mêmes questions pour vous deux"}:pickNext();
+  if(!state.current){S.n=S.i;seriesRecap();return;}state.selected=new Set();state.answered=false;renderQuestion();}
+function renderQuestion(){
+  const S=state.series,{q,why}=state.current,n=notion(q.notion),ch=chapter(n.ch),done=state.answered;
+  F.prog(S.i/S.n,`${S.i+1}/${S.n}`);
+  let h=`<div class="fcard"><p class="why">${why} · <span class="muted">chap. ${ch.n}</span></p>${q.vignette?`<div class="vignette">${esc(q.vignette)}</div>`:""}<p class="stem">${esc(q.stem)}</p><div class="props">`;
+  q.props.forEach((p,i)=>{const sel=state.selected.has(i);let cls="prop",v="";
+    if(done){const ok=!!p[1]===sel;cls+=" done "+(ok?"good":"miss");v=(ok?"✓ ":"✗ ")+(p[1]?"Vraie":"Fausse");
+      const sec=SECTIONS[p[3]];
+      h+=`<div class="${cls}"><span class="k">${"ABCDE"[i]}</span><span>${esc(p[0])}<span class="iexp">${esc(p[2]||"")}</span>${sec?`<button class="cours" data-sec="${esc(p[3])}" data-p="${p[4]}">Voir le cours · §${esc(p[3])} ${esc(sec.titre)}, p. ${sec.page} ›</button>`:""}</span><span class="verdict">${v}</span></div>`;return;}
+    else if(sel)cls+=" sel";
+    h+=`<button class="${cls}" data-i="${i}" aria-pressed="${sel}"><span class="k">${"ABCDE"[i]}</span><span>${esc(p[0])}</span><span class="verdict">${v}</span></button>`;});
+  h+=`</div>`;
+  if(!done)h+=`<div class="row" style="margin-top:20px"><button class="btn primary" id="validate" ${state.selected.size?"":"disabled"}>Valider</button></div><p class="hint"><kbd>A</kbd>–<kbd>E</kbd> cocher · <kbd>Entrée</kbd> valider · <kbd>Échap</kbd> quitter</p>`;
+  else{
+    const r=scoreOf(q,state.selected),cc=r.s===1?"ok":r.s>=.5?"warn":"bad";
+    h+=`<div class="result"><div class="score"><span class="big">${dec(r.s)}</span><span class="chip ${cc}">${r.d===0?"Parfait":r.d+" discordance"+(r.d>1?"s":"")}</span><span class="small muted">${esc(n.label)} : ${pct(state.prevM)} → <b>${pct(state.mastery[q.notion])} %</b></span></div>
+      <div class="source"><div class="ref">Synthèse · ${esc(q.src.ref)}</div>${q.src.text}${q.src.also?`<div class="also">Moodle · ${esc(q.src.also)}</div>`:""}</div>
+      <div><button class="btn primary" id="next">${S.i+1<S.n?"Suivante":"Bilan"}</button></div></div>`;
+  }
+  F.body(h+`</div>`);
+  $("#fbody").querySelectorAll("button.prop").forEach(b=>b.addEventListener("click",()=>toggleProp(+b.dataset.i)));
+  bindCours($("#fbody"));
+  const v=$("#validate");if(v)v.addEventListener("click",answer);
+  const nx=$("#next");if(nx)nx.addEventListener("click",nextQ);
+  onKey=e=>{const k=e.key.toUpperCase();if(!state.answered&&k.length===1&&"ABCDE".includes(k))toggleProp("ABCDE".indexOf(k));else if(e.key==="Enter"){e.preventDefault();state.answered?nextQ():(state.selected.size&&answer());}};
+}
+function toggleProp(i){if(state.answered)return;state.selected.has(i)?state.selected.delete(i):state.selected.add(i);renderQuestion();}
+function answer(){
+  const S=state.series,q=state.current.q,r=scoreOf(q,state.selected);
+  state.prevM=state.mastery[q.notion];bump(q.notion,r.s,q.ext?.15:.35);
+  state.due[q.notion]=now+(r.s===1?7:r.s>=.5?3:1)*DAY;
+  if(r.s<1)state.lastErr[q.notion]=0;else delete state.lastErr[q.notion];
+  state.seen.add(q.id);S.done.add(q.id);S.res.push({q,s:r.s});state.answered=true;state.answeredCount++;addPoints(Math.round(10+10*r.s),1);
+  renderQuestion();
+}
+function nextQ(){const S=state.series;state.lastQ=state.current.q.id;S.i++;if(S.i<S.n)loadQuestion();else seriesRecap();}
+function seriesRecap(){
+  const S=state.series,tot=S.res.reduce((a,r)=>a+r.s,0);
+  F.prog(1,"");onKey=e=>{if(e.key==="Enter")F.close();};
+  const moved=Object.keys(S.start).map(id=>[id,state.mastery[id]-S.start[id]]).filter(x=>Math.abs(x[1])>=.01).sort((a,b)=>b[1]-a[1]);
+  state.lastSeries={score:+tot.toFixed(1),n:S.n};
+  let h=`<div class="fcard recap">`;
+  if(S.duel){const op=S.duel.score;h+=`<h2>${tot>op?"Gagné":tot===op?"Égalité":"Perdu, de peu"}</h2><div class="vs"><div><div class="label">Vous</div><div class="s">${dec(tot)}</div></div><span class="label">vs</span><div><div class="label">${esc(S.duel.name)}</div><div class="s">${dec(op)}</div></div></div>`;}
+  else h+=`<h2>${dec(tot)} / ${S.n}</h2><p class="muted">Les erreurs reviennent dans « À revoir ».</p>`;
+  h+=`<div class="rows">${moved.slice(0,4).map(([id,d])=>`<div><span>${esc(notion(id).label)}</span><span class="mono" style="color:${d>0?"var(--ok)":"var(--bad)"}">${d>0?"+":""}${pct(d)}</span></div>`).join("")}</div>
+  <div class="row"><button class="btn primary" id="fin">Terminer</button>${S.duel?"":`<button class="btn" id="again">Encore une</button>`}<span class="pts">+${S.res.reduce((a,r)=>a+Math.round(10+10*r.s),0)} pts</span></div></div>`;
+  F.body(h);$("#fin").addEventListener("click",F.close);const a=$("#again");if(a)a.addEventListener("click",()=>startSeries());
+}
+
+/* ================= Jeux solo ================= */
+function endGame(title,sub,rows,pts){
+  F.prog(1,"");addPoints(pts,0);
+  F.body(`<div class="fcard recap"><h2>${esc(title)}</h2>${sub?`<p class="muted">${sub}</p>`:""}${rows?`<div class="rows">${rows}</div>`:""}<div class="row" style="margin-top:14px"><button class="btn primary" id="fin">Terminer</button><span class="pts">+${pts} pts</span></div></div>`);
+  $("#fin").addEventListener("click",F.close);onKey=e=>{if(e.key==="Enter")F.close();};
+}
+function gameFlash(){
+  F.open("Flashcards");const deck=shuffle(CARDS);let i=0,flip=false;const miss=[];
+  const draw=()=>{F.prog(i/deck.length,`${i+1}/${deck.length}`);const c=deck[i];
+    F.body(`<div class="flash-card ${flip?"flip":""}" id="fc" role="button" tabindex="0" aria-label="Retourner"><div class="flash-inner"><div class="face"><div class="term">${esc(c[0])}</div><span class="small muted">Touchez pour retourner</span></div><div class="face back"><span class="label">${esc(c[0])}</span><div class="def">${esc(c[1])}</div></div></div></div>
+      <div class="row" style="justify-content:center">${flip?`<button class="btn" id="no">À revoir</button><button class="btn primary" id="yes">Je savais</button>`:""}</div>
+      <p class="hint" style="text-align:center">Sur téléphone : touchez pour retourner, glissez → je savais, ← à revoir<br><kbd>Espace</kbd> retourner · <kbd>1</kbd> à revoir · <kbd>2</kbd> je savais</p>`);
+    const fc=$("#fc");let x0=null;
+    fc.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+    fc.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;
+      if(Math.abs(dx)>60){e.preventDefault();if(!flip){flip=true;draw();}else res(dx>0?1:0);}});
+    fc.addEventListener("click",()=>{flip=!flip;draw();});
+    const y=$("#yes");if(y)y.addEventListener("click",()=>res(1));const n=$("#no");if(n)n.addEventListener("click",()=>res(0));};
+  const res=ok=>{const c=deck[i];bump(c[2],ok,.08);if(!ok){miss.push(c);state.due[c[2]]=Math.min(state.due[c[2]]||now,now);}i++;flip=false;
+    if(i<deck.length)draw();else endGame(`${deck.length-miss.length} / ${deck.length}`,miss.length?"À revoir :":"Tout est su.",miss.map(c=>`<div><span>${esc(c[0])}</span><span class="chip warn">À revoir</span></div>`).join(""),20+(deck.length-miss.length)*5);};
+  onKey=e=>{if(e.key===" "){e.preventDefault();flip=!flip;draw();}else if(flip&&e.key==="1")res(0);else if(flip&&e.key==="2")res(1);};
+  draw();
+}
+function tfEngine(o){
+  F.open(o.title);const pool=shuffle(TF);let i=0,good=0,lives=3,left=60,lock=false;const errs=[];
+  const head=()=>o.mode==="time"?`${left} s`:"♥".repeat(lives)+"♡".repeat(3-lives);
+  const draw=fb=>{F.prog(o.mode==="time"?(60-left)/60:0,head());const s=pool[i%pool.length];
+    F.body(`<div class="fcard"><div class="row between"><span class="label">Score</span><span class="mono" style="font-size:1.4rem">${good}</span></div>
+      <div class="tf ${fb||""}"><div class="stmt">${esc(s[0])}</div><div class="btns"><button class="v" id="tv">VRAI</button><button class="f" id="tfx">FAUX</button></div></div>
+      <p class="hint" style="text-align:center"><kbd>V</kbd> vrai · <kbd>F</kbd> faux</p></div>`);
+    $("#tv").addEventListener("click",()=>pick(1));$("#tfx").addEventListener("click",()=>pick(0));};
+  const finish=()=>{onKey=null;state.timers.forEach(t=>clearInterval(t));
+    endGame(`${good} bonne${good>1?"s":""} réponse${good>1?"s":""}`,errs.length?"À corriger :":"",errs.slice(0,5).map(s=>`<div><span>${esc(s[0])}</span><span class="chip ${s[1]?"ok":"bad"}">${s[1]?"Vrai":"Faux"}</span></div>`).join(""),good*4);};
+  const pick=v=>{if(lock)return;const s=pool[i%pool.length],ok=s[1]===v;if(ok)good++;else{errs.push(s);lives--;}lock=true;draw(ok?"okf":"badf");
+    later(()=>{lock=false;i++;if(o.mode==="lives"&&lives<=0)finish();else if(o.mode!=="time"||left>0)draw();},350);};
+  onKey=e=>{const k=e.key.toLowerCase();if(k==="arrowleft"||k==="v")pick(1);else if(k==="arrowright"||k==="f")pick(0);};
+  if(o.mode==="time")every(()=>{left--;F.prog((60-left)/60,head());if(left<=0)finish();},1000);
+  draw();
+}
+function gameMemory(){
+  F.open("Memory");const P=shuffle(PAIRS).slice(0,6);
+  const cards=shuffle(P.flatMap((p,i)=>[{t:p[0],i},{t:p[1],i}]));let up=[],found=new Set(),moves=0,lock=false;
+  const draw=()=>{F.prog(found.size/6,`${moves} coups`);
+    F.body(`<div class="memory">${cards.map((c,k)=>{const isUp=up.includes(k),f=found.has(c.i);return `<button data-k="${k}" class="${f?"found":isUp?"up":""}" aria-label="${f||isUp?esc(c.t):"Carte cachée"}">${f||isUp?esc(c.t):""}</button>`;}).join("")}</div>`);
+    $("#fbody").querySelectorAll("[data-k]").forEach(b=>b.addEventListener("click",()=>flipC(+b.dataset.k)));};
+  const flipC=k=>{if(lock||up.includes(k)||found.has(cards[k].i))return;up.push(k);
+    if(up.length===2){moves++;const [a,b]=up;if(cards[a].i===cards[b].i){found.add(cards[a].i);up=[];if(found.size===6){draw();later(()=>endGame(`${moves} coups`,"Six paires trouvées.","",Math.max(10,70-moves*3)),500);return;}}
+      else{lock=true;later(()=>{up=[];lock=false;draw();},800);}}
+    draw();};
+  draw();
+}
+function gameMatch(){
+  F.open("Associations");const L=shuffle(PAIRS.map((p,i)=>({t:p[0],i}))),R=shuffle(PAIRS.map((p,i)=>({t:p[1],i})));
+  const done=new Set();let sel=null,wrong=null,err=0;const t0=Date.now();
+  const draw=()=>{F.prog(done.size/PAIRS.length,`${done.size}/${PAIRS.length}`);
+    F.body(`<div class="match"><div class="col">${L.map(x=>`<button data-l="${x.i}" class="${done.has(x.i)?"done":sel===x.i?"sel":""}">${esc(x.t)}</button>`).join("")}</div><div class="col">${R.map(x=>`<button data-r="${x.i}" class="${done.has(x.i)?"done":wrong===x.i?"wrong":""}">${esc(x.t)}</button>`).join("")}</div></div>`);
+    $("#fbody").querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.l;if(done.has(i))return;sel=i;wrong=null;draw();}));
+    $("#fbody").querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.r;if(done.has(i)||sel===null)return;
+      if(i===sel){done.add(i);sel=null;wrong=null;}else{wrong=i;err++;}
+      if(done.size===PAIRS.length)endGame(`${Math.round((Date.now()-t0)/1000)} s`,`${err} erreur${err>1?"s":""}.`,"",Math.max(10,60-err*5));else draw();}));};
+  draw();
+}
+function gameOrder(){
+  F.open("Remettre dans l'ordre · CMH II");let items=shuffle(ORDER.map((t,i)=>({t,i}))),checked=false,tries=0;
+  const draw=()=>{const ok=items.every((x,k)=>x.i===k),nb=items.filter((x,k)=>x.i===k).length;F.prog(checked?nb/items.length:0,checked?`${nb}/${items.length}`:"");
+    F.body(`<div class="fcard"><p class="stem">De la synthèse à la reconnaissance.</p><ol class="order">${items.map((x,k)=>`<li class="${checked?(x.i===k?"good":"miss"):""}"><span class="n">${k+1}</span><span>${esc(x.t)}</span><span class="mv"><button data-u="${k}" aria-label="Monter" ${k===0?"disabled":""}>↑</button><button data-d="${k}" aria-label="Descendre" ${k===items.length-1?"disabled":""}>↓</button></span></li>`).join("")}</ol>
+      ${checked&&ok?`<button class="btn primary" id="fin2">Continuer</button>`:`<button class="btn primary" id="chk">Vérifier</button>`}</div>`);
+    $("#fbody").querySelectorAll("[data-u]").forEach(b=>b.addEventListener("click",()=>{const k=+b.dataset.u;[items[k-1],items[k]]=[items[k],items[k-1]];checked=false;draw();}));
+    $("#fbody").querySelectorAll("[data-d]").forEach(b=>b.addEventListener("click",()=>{const k=+b.dataset.d;[items[k+1],items[k]]=[items[k],items[k+1]];checked=false;draw();}));
+    const c=$("#chk");if(c)c.addEventListener("click",()=>{checked=true;tries++;if(items.every((x,k)=>x.i===k))bump("n5",1,.12);draw();});
+    const f=$("#fin2");if(f)f.addEventListener("click",()=>endGame(`${tries} essai${tries>1?"s":""}`,"Mécanisme reconstitué.","",Math.max(10,50-(tries-1)*10)));};
+  draw();
+}
+function gameRiddle(){
+  F.open("Qui suis-je ?");let r=0,shown=1,total=0,ans=null;
+  const draw=()=>{const R=RIDDLES[r];F.prog(r/RIDDLES.length,`${r+1}/${RIDDLES.length}`);
+    F.body(`<div class="fcard"><div class="row between"><span class="label">Énigme ${r+1}</span><span class="chip gold">${ans===null?(4-shown)*10+" pts en jeu":ans===R.a?"+"+(4-shown)*10:"0"}</span></div>
+      <div class="clues">${R.clues.slice(0,shown).map(c=>`<div class="clue">${esc(c)}</div>`).join("")}</div>
+      ${ans===null&&shown<R.clues.length?`<button class="btn sm" id="more">Indice suivant</button>`:""}
+      <div class="opts">${R.opts.map((o,k)=>`<button data-o="${k}" class="${ans!==null?(k===R.a?"good":k===ans?"miss":""):""}" ${ans!==null?"disabled":""}>${esc(o)}</button>`).join("")}</div>
+      ${ans!==null?`<div style="margin-top:16px"><button class="btn primary" id="nx">${r+1<RIDDLES.length?"Suivante":"Score"}</button></div>`:""}</div>`);
+    const m=$("#more");if(m)m.addEventListener("click",()=>{shown++;draw();});
+    $("#fbody").querySelectorAll("[data-o]").forEach(b=>b.addEventListener("click",()=>{ans=+b.dataset.o;if(ans===R.a)total+=(4-shown)*10;draw();}));
+    const n=$("#nx");if(n)n.addEventListener("click",()=>{r++;shown=1;ans=null;if(r<RIDDLES.length)draw();else endGame(`${total} points`,"","",total);});};
+  draw();
+}
+
+/* ================= Jeux à plusieurs ================= */
+function gameDuel(name){startSeries({n:5,fixed:shuffle(Q.filter(q=>!q.ext)).slice(0,5),duel:{name,score:3.7},title:`Duel · ${name}`});}
+function liveGame(o){
+  // o.teams : false = chacun pour soi, true = équipe contre équipe
+  const code=o.code||("IMMU-"+Math.floor(10+Math.random()*89));
+  F.open(o.teams?"Équipe contre équipe":"Quiz en direct");
+  const bots=shuffle(BOTS).slice(0,o.teams?4:5);
+  const players=[{name:"Vous",me:1,team:0,pts:0,skill:0}].concat(bots.map((b,k)=>({name:b,team:o.teams?(k===0?0:1):0,pts:0,skill:.55+Math.random()*.3})));
+  if(o.teams){players.push({name:shuffle(BOTS.filter(b=>!bots.includes(b)))[0],team:0,pts:0,skill:.6});}
+  const TN=["Groupe d'ED 7","Groupe d'ED 12"];
+  let joined=1;
+  const lobby=()=>{
+    F.prog(0,"");
+    const pl=players.slice(0,joined);
+    const list=t=>pl.filter(p=>!o.teams||p.team===t).map(p=>`<span class="${p.me?"me":""}">${esc(p.name)}</span>`).join("");
+    F.body(`<div class="fcard lobby"><span class="label">Code du salon</span><span class="mono code">${code}</span>
+      ${o.teams?`<div class="teams"><div class="team mine"><b>${TN[0]}</b><div class="players">${list(0)}</div></div><div class="team"><b>${TN[1]}</b><div class="players">${list(1)}</div></div></div>`:`<div class="players">${list(0)}</div>`}
+      <span class="small muted">${joined<players.length?"En attente des joueurs…":players.length+" joueurs prêts"}</span>
+      <button class="btn primary lg" id="lgo" ${joined<players.length?"disabled":""}>Lancer</button></div>`);
+    const b=$("#lgo");if(b)b.addEventListener("click",()=>question(0));
+  };
+  const qs=shuffle(LIVEQ).slice(0,5);
+  const question=k=>{
+    const q=qs[k];let left=15,picked=null;
+    const draw=()=>{F.prog(k/qs.length,`${k+1}/${qs.length}`);
+      F.body(`<div class="fcard"><div class="qtimer"><span style="width:${left/15*100}%"></span></div><p class="stem" style="font-size:1.35rem">${esc(q[0])}</p>
+        <div class="opts">${q[1].map((x,i)=>`<button data-o="${i}" class="${picked!==null?(i===q[2]?"good":i===picked?"miss":""):""}" ${picked!==null?"disabled":""}>${esc(x)}</button>`).join("")}</div>
+        <p class="hint">${picked===null?`${left} s · plus vous êtes rapide, plus vous marquez`:"En attente des autres joueurs…"}</p></div>`);
+      $("#fbody").querySelectorAll("[data-o]").forEach(b=>b.addEventListener("click",()=>{if(picked!==null)return;picked=+b.dataset.o;if(picked===q[2])players[0].pts+=500+left*35;draw();later(reveal,900);}));};
+    const reveal=()=>{state.timers.forEach(t=>clearInterval(t));
+      players.slice(1).forEach(p=>{if(Math.random()<p.skill)p.pts+=500+Math.floor(Math.random()*14)*35;});
+      board(k);};
+    const tick=every(()=>{left--;if(picked===null){if(left<=0){picked=-1;draw();later(reveal,600);}else draw();}},1000);
+    draw();
+  };
+  const board=k=>{
+    const sorted=players.slice().sort((a,b)=>b.pts-a.pts);
+    let inner;
+    if(o.teams){const t=[0,1].map(x=>players.filter(p=>p.team===x).reduce((a,p)=>a+p.pts,0));
+      inner=`<div class="vs"><div><div class="label">${TN[0]}</div><div class="s">${fmtN(t[0])}</div></div><span class="label">vs</span><div><div class="label">${TN[1]}</div><div class="s">${fmtN(t[1])}</div></div></div>`;}
+    else inner=`<div class="board">${sorted.map((p,i)=>`<div class="${p.me?"me":""}"><span class="mono">${i+1}</span><span>${esc(p.name)}</span><span class="mono">${fmtN(p.pts)}</span></div>`).join("")}</div>`;
+    const last=k+1>=qs.length;
+    F.prog((k+1)/qs.length,`${k+1}/${qs.length}`);
+    F.body(`<div class="fcard"><div class="row between"><h2>${last?(o.teams?"Résultat":"Classement final"):"Classement"}</h2><span class="label">Question ${k+1}/${qs.length}</span></div>${inner}<button class="btn primary" id="lnx">${last?"Terminer":"Question suivante"}</button></div>`);
+    $("#lnx").addEventListener("click",()=>{if(!last)question(k+1);else{const rank=sorted.findIndex(p=>p.me)+1;
+      const t=o.teams?[0,1].map(x=>players.filter(p=>p.team===x).reduce((a,p)=>a+p.pts,0)):null;
+      endGame(o.teams?(t[0]>=t[1]?"Victoire du groupe 7":"Le groupe 12 l'emporte"):`${rank}ᵉ sur ${players.length}`,"","",Math.round(players[0].pts/40));}});
+  };
+  lobby();
+  players.slice(1).forEach((p,i)=>later(()=>{joined++;lobby();},500+i*450));
+}
+function createRoom(){
+  F.open("Créer un salon");const code="IMMU-"+Math.floor(10+Math.random()*89);let mode="live";
+  const draw=()=>{F.body(`<div class="fcard create"><span class="label">Format</span>
+    <div class="seg" role="group"><button data-m="live" aria-pressed="${mode==="live"}">Chacun pour soi</button><button data-m="teams" aria-pressed="${mode==="teams"}">En équipes</button></div>
+    <span class="label" style="margin-top:6px">Code à partager</span><div class="code"><span class="mono">${code}</span><button class="btn sm" id="cp">Copier</button></div>
+    <div><button class="btn primary lg" id="open">Ouvrir le salon</button></div></div>`);
+    $("#fbody").querySelectorAll("[data-m]").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.m;draw();}));
+    $("#cp").addEventListener("click",()=>{try{navigator.clipboard.writeText(code).then(()=>toast("Code copié",code),()=>toast("Code",code));}catch(e){toast("Code",code);}});
+    $("#open").addEventListener("click",()=>{state.timers=[];liveGame({teams:mode==="teams",code});});};
+  draw();
+}
+const GAMES={flash:gameFlash,tf:()=>tfEngine({title:"Vrai ou faux · 60 s",mode:"time"}),survie:()=>tfEngine({title:"Survie",mode:"lives"}),memory:gameMemory,match:gameMatch,order:gameOrder,riddle:gameRiddle,
+  live:()=>liveGame({teams:false}),teams:()=>liveGame({teams:true}),duel:()=>gameDuel("Lympho_Lune"),room:createRoom};
+
+/* ================= Tableaux de bord ================= */
+function renderTarget(){const p=pickNext();if(!p){$("#target").textContent="";return;}const n=notion(p.q.notion);$("#target").innerHTML=`On commence par <b>${esc(n.label)}</b> (${pct(state.mastery[n.id])} %).`;}
+function renderModes(){
+  $("#m-auto").setAttribute("aria-pressed",state.mode==="auto");$("#m-chap").setAttribute("aria-pressed",state.mode==="chap");
+  $("#chaps").hidden=state.mode!=="chap";
+  $("#chaps").innerHTML=CHAPTERS.filter(c=>c.part===1).map(c=>`<button data-c="${c.id}" aria-pressed="${state.chaps.has(c.id)}" title="${esc(c.title)}">Chap. ${c.n}</button>`).join("");
+  $("#chaps").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const c=b.dataset.c;if(state.chaps.has(c)){if(state.chaps.size>1)state.chaps.delete(c);}else state.chaps.add(c);renderModes();}));
+  renderTarget();
+}
+$("#m-auto").addEventListener("click",()=>{state.mode="auto";renderModes();});
+$("#m-chap").addEventListener("click",()=>{state.mode="chap";renderModes();});
+$("#go").addEventListener("click",()=>startSeries());
+function testChapter(ch){state.mode="chap";state.chaps=new Set([ch]);renderModes();startSeries({title:`Chap. ${chapter(ch).n} · ${chapter(ch).title}`});}
+function renderStats(){const L=state.lastSeries;$("#stats").innerHTML=`<span><b>${dec(L.score)}/${L.n}</b>dernière série</span><span><b>${pct(Math.min(1,(41+state.answeredCount)/64))} %</b>du référentiel vu</span><span><b>${fmtN(state.points)}</b>points</span>`;}
+function renderFeed(){
+  $("#feed").innerHTML=FEED.map(f=>`<div class="fi"><span class="ic">${f.type}</span><div style="min-width:0"><div class="t">${esc(f.title)}${f.isNew?'<span class="new" aria-label="nouveau"></span>':""}</div><div class="s">${esc(f.sub)}</div></div><button class="btn sm" data-ch="${f.ch}">Me tester</button></div>`).join("");
+  $("#feed").querySelectorAll("button[data-ch]").forEach(b=>b.addEventListener("click",()=>testChapter(b.dataset.ch)));
+}
+function renderMastery(){
+  let h="";for(const ch of CHAPTERS.filter(c=>c.part===1)){h+=`<div class="ch-title">${ch.n} · ${esc(ch.title)}</div>`;
+    for(const n of NOTIONS.filter(n=>n.ch===ch.id)){const m=state.mastery[n.id];h+=`<div class="mrow"><span class="name">${esc(n.label)}</span><span class="pct" style="color:${color(m)}">${pct(m)}</span><div class="bar"><span style="width:${pct(m)}%;background:${color(m)}"></span></div></div>`;}}
+  $("#mastery").innerHTML=h;$("#cover").textContent="";
+}
+function renderPlan(){$("#plan").innerHTML=Object.entries(state.due).sort((a,b)=>a[1]-b[1]).slice(0,5).map(([id,t])=>`<li><span>${esc(notion(id).label)}</span><span class="d" style="${t<now?"color:var(--warn)":""}">${rel(t)}</span></li>`).join("");}
+
+function renderTiles(){
+  const tile=(f,m)=>`<button class="tile ${m?"multi":""}" data-g="${f.id}"><span class="ico">${esc(f.ico)}</span><b>${esc(f.name)}</b><span class="d">${esc(f.d)}</span></button>`;
+  $("#solo").innerHTML=SOLO.map(f=>tile(f,0)).join("");
+  document.querySelectorAll("[data-g]").forEach(b=>b.addEventListener("click",()=>GAMES[b.dataset.g]()));
+}
+function renderLeague(){
+  const on=$("#leagueon").checked;
+  $("#mypts").textContent=`${fmtN(state.points)} pts`;
+  const p=Math.min(1,state.promo/50000);$("#promobar").style.width=Math.round(p*100)+"%";$("#promotxt").textContent=`${fmtN(state.promo)} / 50 000`;
+  if(!on){$("#ltabs").innerHTML="";$("#lbody").innerHTML=`<p class="small muted">Ligues désactivées. Le reste ne change pas.</p>`;return;}
+  $("#ltabs").innerHTML=state.leagues.map(l=>`<button data-l="${l.id}" aria-pressed="${!state.creating&&state.league===l.id}">${esc(l.name)}</button>`).join("")+`<button class="add" id="newl" aria-pressed="${state.creating}">+ Créer une ligue</button>`;
+  $("#ltabs").querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{state.league=b.dataset.l;state.creating=false;renderLeague();}));
+  $("#newl").addEventListener("click",()=>{state.creating=true;renderLeague();});
+  if(state.creating){
+    $("#lbody").innerHTML=`<div class="create"><label class="label" for="lname">Nom de la ligue</label><input type="text" id="lname" placeholder="Ex. : Les Opsonines" maxlength="28">
+      <div class="row"><button class="btn primary" id="mk">Créer</button><span class="small muted">Vous recevrez un code à envoyer à vos amis.</span></div></div>`;
+    $("#mk").addEventListener("click",()=>{const name=($("#lname").value||"").trim()||"Ma ligue";const code=name.replace(/[^A-Za-zÀ-ÿ]/g,"").slice(0,5).toUpperCase().normalize("NFD").replace(/[̀-ͯ]/g,"")+"-"+Math.random().toString(36).slice(2,5).toUpperCase();
+      const L={id:"l"+Date.now(),name,code,rows:[["Macrophage_Zen",0,1]],fresh:true};state.leagues.push(L);state.league=L.id;state.creating=false;renderLeague();
+      ["Inès","Hugo","Sarah"].forEach((n,i)=>later2(()=>{L.rows.push([n,0]);if(state.league===L.id&&!state.creating)renderLeague();},1200+i*1100));});
+    return;
+  }
+  const L=state.leagues.find(l=>l.id===state.league);
+  const rows=L.rows.map(r=>r[2]?[r[0],state.points,1]:r).sort((a,b)=>b[1]-a[1]);
+  $("#lbody").innerHTML=`${L.code?`<div class="code" style="margin-bottom:14px"><span class="small muted">Code d'invitation</span><span class="mono">${esc(L.code)}</span><button class="btn sm" id="cpl">Copier</button></div>`:`<p class="small muted" style="margin-bottom:10px">Groupes refaits chaque lundi · pas de relégation</p>`}
+    <table class="league"><tbody>${rows.map((r,k)=>`<tr class="${r[2]?"me":""}"><td class="r">${k+1}</td><td>${esc(r[0])}</td><td class="p">${fmtN(r[1])}</td></tr>`).join("")}</tbody></table>
+    ${L.fresh&&rows.length<4?`<p class="small muted" style="margin-top:10px">En attente de vos amis…</p>`:""}`;
+  const c=$("#cpl");if(c)c.addEventListener("click",()=>{try{navigator.clipboard.writeText(L.code).then(()=>toast("Code copié",L.code),()=>toast("Code",L.code));}catch(e){toast("Code",L.code);}});
+}
+const pageTimers=[];function later2(fn,ms){pageTimers.push(setTimeout(fn,ms));}
+$("#leagueon").addEventListener("change",renderLeague);
+$("#acc").addEventListener("click",()=>gameDuel("Lympho_Lune"));
+$("#acc2").addEventListener("click",()=>tfEngine({title:"Vrai ou faux · défi d'Opsonine",mode:"time"}));
+function renderDays(){$("#days").innerHTML=[["L",1],["M",1],["M",1],["J",0,"rest"],["V",1],["S",1],["D",0]].map(x=>`<span class="${x[2]||(x[1]?"on":"")}">${x[0]}</span>`).join("");}
+
+/* Validation */
+function renderRules(){const c=state.cfg;$("#rules").innerHTML=`<div><div class="label">Seuil</div><div class="v">${c.global} %</div></div><div><div class="label">Par chapitre</div><div class="v">${c.chap} %</div></div><div><div class="label">Questions</div><div class="v">${c.n}</div></div><div><div class="label">Délai</div><div class="v">${c.delay?c.delay+" h":"—"}</div></div>`;}
+function renderParts(){
+  const p1=CHAPTERS.filter(c=>c.part===1),p2=CHAPTERS.filter(c=>c.part===2),ok=state.part2,open=ok||!$("#c-lock").checked;
+  $("#parts").innerHTML=`<div class="panel part"><div class="row between"><h3>Partie 1 · Fondamentale</h3><span class="chip ${ok?"ok":"warn"}">${ok?"Validée":"En cours"}</span></div><ol>${p1.map(c=>`<li>${esc(c.title)}</li>`).join("")}</ol></div>
+   <div class="panel part ${open?"":"locked"}"><div class="row between"><h3>Partie 2 · Immunologie appliquée</h3><span class="chip ${open?"acc":""}">${open?"Ouverte":"🔒 Verrouillée"}</span></div><ol start="7">${p2.map(c=>`<li>${esc(c.title)}</li>`).join("")}</ol></div>`;
+}
+function renderAttempts(){const c=state.cfg,chs=CHAPTERS.filter(x=>x.part===1);
+  let h=`<thead><tr><th>#</th><th>Date</th><th>Score</th>${chs.map(x=>`<th title="${esc(x.title)}">Ch. ${x.n}</th>`).join("")}<th></th></tr></thead><tbody>`;
+  state.attempts.forEach((a,i)=>{const ok=a.score>=c.global&&chs.every(x=>a.ch[x.id]>=c.chap);
+    h+=`<tr><td>${i+1}</td><td>${a.date}</td><td class="mono">${a.score} %</td>${chs.map(x=>`<td class="mono" style="color:${a.ch[x.id]<c.chap?"var(--bad)":"var(--ink-3)"}">${a.ch[x.id]}</td>`).join("")}<td><span class="chip ${ok?"ok":"bad"}">${ok?"Validé":"Non validé"}</span></td></tr>`;});
+  $("#attempts").innerHTML=h+"</tbody>";}
+function resetDemo(){state.part2=false;state.attempts=state.attempts.slice(0,2);state.examResult=null;renderValidation();}
+function renderExamPanel(){
+  if(state.examResult){$("#exam").innerHTML=state.examResult;bindExamResult();return;}
+  const last=state.attempts[state.attempts.length-1],c=state.cfg,chs=CHAPTERS.filter(x=>x.part===1),weak=chs.filter(x=>last.ch[x.id]<c.chap);
+  if(state.part2){$("#exam").innerHTML=`<div class="row between"><h3>Partie 1 validée</h3><button class="btn sm" id="reset">Réinitialiser la démo</button></div>`;$("#reset").addEventListener("click",resetDemo);return;}
+  $("#exam").innerHTML=`<div class="row between"><div><h3>Passage ${state.attempts.length+1}</h3><p class="small muted" style="margin-top:4px">Démo abrégée : 6 questions, une par chapitre (réglage en production : ${c.n} questions) · Dernier : ${last.score} %${weak.length?` · à renforcer : chap. ${weak.map(x=>x.n).join(", ")}`:""}</p></div>
+   <div class="row">${weak.length?`<button class="btn" id="revise">Réviser le chap. ${weak[0].n}</button>`:""}<button class="btn primary cta" id="start">Lancer</button></div></div>`;
+  $("#start").addEventListener("click",startExam);const rv=$("#revise");if(rv)rv.addEventListener("click",()=>testChapter(weak[0].id));
+}
+function startExam(){state.exam={qs:CHAPTERS.filter(x=>x.part===1).map(ch=>{const p=Q.filter(q=>!q.ext&&notion(q.notion).ch===ch.id);return p[Math.floor(Math.random()*p.length)];}),i:0,sel:new Set(),res:[]};
+  F.open(`Validation · passage ${state.attempts.length+1}`);renderExam();}
+function renderExam(){
+  const e=state.exam,q=e.qs[e.i],ch=chapter(notion(q.notion).ch);F.prog(e.i/e.qs.length,`${e.i+1}/${e.qs.length}`);
+  let h=`<div class="fcard"><p class="why">Chap. ${ch.n} · correction à la fin · <span class="muted">démo abrégée : 6 questions au lieu de ${state.cfg.n}</span></p><p class="stem">${esc(q.stem)}</p><div class="props">`;
+  q.props.forEach((p,i)=>{const s=e.sel.has(i);h+=`<button class="prop ${s?"sel":""}" data-i="${i}" aria-pressed="${s}"><span class="k">${"ABCDE"[i]}</span><span>${esc(p[0])}</span><span></span></button>`;});
+  F.body(h+`</div><div style="margin-top:20px"><button class="btn primary" id="enext" ${e.sel.size?"":"disabled"}>${e.i<e.qs.length-1?"Suivante":"Terminer"}</button></div></div>`);
+  const tog=i=>{e.sel.has(i)?e.sel.delete(i):e.sel.add(i);renderExam();};
+  $("#fbody").querySelectorAll("button.prop").forEach(b=>b.addEventListener("click",()=>tog(+b.dataset.i)));
+  const go=()=>{if(!e.sel.size)return;e.res.push({ch:ch.id,s:scoreOf(q,e.sel).s});e.sel=new Set();e.i++;if(e.i<e.qs.length)renderExam();else finishExam();};
+  $("#enext").addEventListener("click",go);
+  onKey=ev=>{const k=ev.key.toUpperCase();if(k.length===1&&"ABCDE".includes(k))tog("ABCDE".indexOf(k));else if(ev.key==="Enter"){ev.preventDefault();go();}};
+}
+function finishExam(){
+  const e=state.exam,c=state.cfg,chs=CHAPTERS.filter(x=>x.part===1),ch={};e.res.forEach(r=>ch[r.ch]=Math.round(r.s*100));
+  const score=Math.round(e.res.reduce((a,r)=>a+r.s,0)/e.res.length*100),ok=score>=c.global&&chs.every(x=>ch[x.id]>=c.chap);
+  state.attempts.push({date:"auj.",score,ch});if(ok)state.part2=true;const weak=chs.filter(x=>ch[x.id]<c.chap);
+  if(!ok)weak.forEach(x=>NOTIONS.filter(n=>n.ch===x.id).forEach(n=>{state.due[n.id]=now-DAY/2;}));
+  let h=`<div class="row between" style="margin-bottom:16px"><h3>Passage ${state.attempts.length} · ${score} %</h3><span class="chip ${ok?"ok":"bad"}">${ok?"Partie 1 validée":"Non validé"}</span></div><div class="mastery">`;
+  chs.forEach(x=>{const low=ch[x.id]<c.chap;h+=`<div class="mrow"><span class="name">${x.n} · ${esc(x.title)}</span><span class="pct" style="color:${low?"var(--bad)":"var(--ok)"}">${ch[x.id]}</span><div class="bar tick" style="--t:${c.chap}%"><span style="width:${ch[x.id]}%;background:${low?"var(--bad)":"var(--ok)"}"></span></div></div>`;});
+  h+=`</div>`;
+  if($("#c-grade").checked)h+=`<div class="mdline"><span class="chip md">Moodle</span><span>Reporté dans le carnet de notes${ok?" · Partie 2 ouverte":""}</span></div>`;
+  h+=`<div class="row" style="margin-top:16px">${ok?`<button class="btn sm" id="reset">Réinitialiser la démo</button>`:`${weak.length?`<button class="btn primary" id="revise" data-ch="${weak[0].id}">Réviser le chap. ${weak[0].n}</button>`:""}<button class="btn" id="again">Repasser (démo)</button>`}</div>`;
+  state.examResult=h;F.close();location.hash="validation";renderValidation();$("#exam").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function bindExamResult(){const a=$("#again");if(a)a.addEventListener("click",()=>{state.examResult=null;startExam();});
+  const r=$("#reset");if(r)r.addEventListener("click",resetDemo);const rv=$("#revise");if(rv)rv.addEventListener("click",()=>{state.examResult=null;testChapter(rv.dataset.ch);});}
+function renderValidation(){renderRules();renderParts();renderAttempts();renderExamPanel();}
+
+/* Enseignant */
+function renderResources(){
+  const rows=[["Référentiel d'immunologie","248 p.","ok","Lu"],["CM 1 à 7","Vidéos","ok","Transcrits"],["ED 1 à 3","Diapos","ok","Lus"],["Chap. 10 · Vaccination","Déposé ce matin","warn","22 questions à relire"],["Annales 2023-2025","QRM","","À décider"]];
+  $("#resources").innerHTML=`<tbody>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td class="muted">${esc(r[1])}</td><td style="text-align:right"><span class="chip ${r[2]}">${esc(r[3])}</span></td></tr>`).join("")}</tbody>`;
+}
+function renderQueue(){
+  $("#bankcount").textContent=`${state.bank.validated} / ${state.bank.total} validées`;
+  $("#queue").innerHTML=state.queue.map(g=>{const ch=chapter(g.ch);const st=g.status==="ok"?'<span class="chip ok">Validée</span>':g.status==="no"?'<span class="chip bad">Rejetée</span>':"";
+    return `<div class="qcard" data-id="${g.id}"><div class="row between"><span class="label">Chap. ${ch.n} · ${esc(g.from)}</span>${st}</div><p style="font-weight:600">${esc(g.stem)}</p><ol type="A">${g.props.map(p=>`<li class="${p[1]?"t":""}">${esc(p[0])}${p[1]?'<span class="true">vraie</span>':""}<div class="small muted">${esc(p[2]||"")} · §${esc(p[3])}</div></li>`).join("")}</ol>${g.status==="todo"?`<div class="row"><button class="btn sm primary" data-act="ok">Valider</button><button class="btn sm" data-act="edit">Modifier</button><button class="btn sm" data-act="no">Rejeter</button></div>`:`<div><button class="btn sm" data-act="undo">Annuler</button></div>`}</div>`;}).join("");
+  $("#queue").querySelectorAll("button[data-act]").forEach(b=>b.addEventListener("click",()=>{const g=state.queue.find(x=>x.id===b.closest(".qcard").dataset.id),act=b.dataset.act;
+    if(act==="ok"){g.status="ok";state.bank.validated++;g.q.statut="validee";if(!Q.includes(g.q))Q.push(g.q);toast("Question publiée","Elle est maintenant proposée aux étudiants et apparaît comme validée dans la base.");}
+    else if(act==="no"){g.status="no";g.q.statut="rejetee";}
+    else if(act==="undo"){if(g.status==="ok")state.bank.validated--;g.status="todo";g.q.statut="a_relire";const k=Q.indexOf(g.q);if(k>=0)Q.splice(k,1);}
+    else{b.textContent="Dans la version complète";b.disabled=true;return;}renderQueue();renderBase();refreshDash();}));
+}
+function renderCohort(){$("#cohort").innerHTML=[["CMH de classe II",.47],["Sélection thymique",.52],["Commutation",.56],["CMH de classe I",.61]].map(([l,m])=>`<div class="mrow"><span class="name">${esc(l)}</span><span class="pct" style="color:${color(m)}">${pct(m)}</span><div class="bar"><span style="width:${pct(m)}%;background:${color(m)}"></span></div></div>`).join("");}
+$("#sendmsg").addEventListener("click",()=>toast("Rappel envoyé (démo)","214 étudiants reçoivent le CM 7 et une série ciblée."));
+$("#amphi").addEventListener("click",()=>liveGame({teams:false,code:"AMPHI-1"}));
+function bindSettings(){
+  [["global","%"],["chap","%"],["n",""],["delay","h"]].forEach(([k,u])=>{const s=$("#s-"+k),o=$("#o-"+k);s.value=state.cfg[k];
+    const upd=()=>{state.cfg[k]=+s.value;o.textContent=(k==="delay"&&!+s.value)?"aucun":s.value+(u?" "+u:"");renderRules();renderAttempts();if(!state.examResult)renderExamPanel();};s.addEventListener("input",upd);upd();});
+  $("#c-lock").addEventListener("change",renderParts);
+  $("#c-league").addEventListener("change",()=>{const on=$("#c-league").checked;$("#leagueon").disabled=!on;if(!on)$("#leagueon").checked=false;renderLeague();});
+}
+function refreshDash(){renderMastery();renderPlan();renderStats();renderTarget();renderLeague();}
+
+/* ================= Fiche de cours ================= */
+function openSection(id,hl){
+  const sec=SECTIONS[id];if(!sec)return;const ch=chapter(sec.chapitre);
+  $("#sheet-in").innerHTML=`<div class="ref">Référentiel · §${esc(sec.section)} · p. ${sec.page} · chap. ${ch?ch.n:""}</div><h3 id="sheet-t">${esc(sec.titre)}</h3>
+    ${sec.passages.map((t,i)=>`<p class="${i===hl?"hl":""}">${esc(t)}</p>`).join("")}
+    <div class="foot"><span class="small muted">En production : lien direct vers la page du cours sur Moodle ou la plateforme de dépôt.</span><button class="btn primary" id="sheet-x">Revenir à la question</button></div>`;
+  $("#sheet").hidden=false;$("#sheet-x").addEventListener("click",closeSection);$("#sheet-x").focus();
+  const h=$("#sheet-in .hl");if(h)h.scrollIntoView({block:"center"});
+}
+function closeSection(){$("#sheet").hidden=true;}
+$("#sheet").addEventListener("click",e=>{if(e.target.id==="sheet")closeSection();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#sheet").hidden){e.stopImmediatePropagation();closeSection();}},true);
+function bindCours(root){root.querySelectorAll("[data-sec]").forEach(b=>b.addEventListener("click",ev=>{ev.stopPropagation();openSection(b.dataset.sec,b.dataset.p===undefined||b.dataset.p===""?-1:+b.dataset.p);}));}
+
+/* ================= Source des cours (Moodle ou dépôt direct) ================= */
+function renderPipeline(){
+  const md=state.source==="moodle";
+  $("#pipeline").innerHTML=(md?`<span class="md">Dépôt sur Moodle</span>`:`<span>Dépôt sur la plateforme</span>`)+`<i>→</i><span>Lecture</span><i>→</i><span>Questions préparées</span><i>→</i><span>Relecture enseignant</span><i>→</i><span class="${md?"md":""}">Base de contenus</span><i>→</i><span>Étudiants</span>`;
+  document.querySelectorAll("[data-src]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.src===state.source));
+}
+document.querySelectorAll("[data-src]").forEach(b=>b.addEventListener("click",()=>{state.source=b.dataset.src;renderPipeline();
+  toast(state.source==="moodle"?"Source : Moodle (simulé)":"Source : dépôt direct (simulé)",state.source==="moodle"?"L'outil lit les cours déjà déposés sur Moodle.":"Les enseignants déposent leurs cours directement sur la plateforme, sans passer par Moodle.");}));
+
+/* ================= Base de contenus ================= */
+const STATUT={validee:["ok","Validée"],a_relire:["warn","À relire"],rejetee:["bad","Rejetée"]};
+function renderBase(){
+  const nItems=ALLQ.reduce((a,q)=>a+q.props.length,0),nv=ALLQ.filter(q=>q.statut==="validee").length;
+  $("#dbkpis").innerHTML=[["Questions validées",nv],["À relire",ALLQ.filter(q=>q.statut==="a_relire").length],["Items corrigés",nItems],["Sections du référentiel",DB.referentiel.length],["Flashcards",DB.flashcards.length],["Vrai ou faux",DB.vrai_faux.length],["Réponses du tuteur",DB.tuteur.length]].map(([l,v])=>`<div><div class="label">${l}</div><div class="v">${v}</div></div>`).join("");
+  $("#dbnote").innerHTML=`<b>Version ${esc(DB.meta.version)}.</b> ${esc(DB.meta.avertissement)}<br><br><b>En production.</b> ${esc(DB.meta.en_production)}`;
+  if(!$("#dbch").options.length){$("#dbch").innerHTML=`<option value="">Tous les chapitres</option>`+CHAPTERS.map(c=>`<option value="${c.id}">Chap. ${c.n} · ${esc(c.title)}</option>`).join("");}
+  const fc=$("#dbch").value,fs=$("#dbst").value,fq=norm($("#dbq").value||"");
+  const list=ALLQ.filter(q=>(!fc||notion(q.notion).ch===fc)&&(!fs||q.statut===fs)&&(!fq||norm([q.stem,q.vignette||"",...q.props.map(p=>p[0]+" "+p[2])].join(" ")).includes(fq)));
+  $("#dbcount").textContent=`${list.length} / ${ALLQ.length}`;
+  $("#dblist").innerHTML=list.length?list.map(q=>{const n=notion(q.notion),c=chapter(n.ch),st=STATUT[q.statut]||["",q.statut];
+    return `<details class="dbq"><summary><b>${q.vignette?esc(q.vignette)+" ":""}${esc(q.stem)}</b><span class="chip ${st[0]}">${st[1]}</span><span class="meta">${esc(q.id)} · chap. ${c.n} · ${esc(n.label)} · ${esc(q.origine)}${q.ext?" · approfondissement":""}</span></summary>
+      <ol class="items">${q.props.map((p,i)=>`<li><span class="v ${p[1]?"t":"f"}">${"ABCDE"[i]} ${p[1]?"V":"F"}</span><span>${esc(p[0])}<small>${esc(p[2]||"")} <button class="cours" data-sec="${esc(p[3])}" data-p="${p[4]}">§${esc(p[3])} ›</button></small></span></li>`).join("")}</ol>
+      <div class="small muted">${esc(q.src.ref)}${q.src.also?" · Moodle : "+esc(q.src.also):""}</div></details>`;}).join(""):`<p class="small muted">Aucune question ne correspond.</p>`;
+  bindCours($("#dblist"));
+  $("#dbrefcount").textContent=`${DB.referentiel.length} sections`;
+  $("#dbref").innerHTML=DB.referentiel.map(r=>`<details class="dbsec"><summary>§${esc(r.section)} · ${esc(r.titre)} <span class="small muted">· p. ${r.page}</span></summary><ol start="0">${r.passages.map(t=>`<li>${esc(t)}</li>`).join("")}</ol></details>`).join("");
+}
+["#dbch","#dbst"].forEach(id=>$(id).addEventListener("change",renderBase));
+$("#dbq").addEventListener("input",renderBase);
+$("#dbcsv").addEventListener("click",()=>{
+  const cell=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+  const rows=[["id","statut","chapitre","notion","enonce","item","texte","reponse","explication","section","reference"]];
+  ALLQ.forEach(q=>{const n=notion(q.notion);q.props.forEach((p,i)=>rows.push([q.id,q.statut,chapter(n.ch).n,n.label,(q.vignette?q.vignette+" ":"")+q.stem,"ABCDE"[i],p[0],p[1]?"VRAI":"FAUX",p[2],p[3],q.src.ref]));});
+  const blob=new Blob(["\ufeff"+rows.map(r=>r.map(cell).join(";")).join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="chevet-base-questions.csv";document.body.appendChild(a);a.click();a.remove();
+});
+
+/* ================= Tuteur ================= */
+const KB=DB.tuteur.map(t=>({k:t.mots_cles,ch:t.chapitre,a:t.reponse_html,s:t.sources.map(x=>[x.libelle,x.moodle?"md":"",x.section||""])}));
+const SUGG=["Quelle différence entre CMH I et CMH II ?","À quoi sert la chaîne invariante ?","Pourquoi les IgG passent le placenta ?","C'est quoi l'anergie ?"];
+const chat={msgs:[],scope:"all",busy:false};
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function findAnswer(q){
+  const t=" "+norm(q)+" ";let best=null,bs=0;
+  KB.forEach(e=>{let sc=0;e.k.forEach(k=>{if(t.includes(norm(k)))sc+=k.length>3?2:1;});if(sc>bs){bs=sc;best=e;}});
+  return bs>0?best:null;
+}
+function renderChat(){
+  $("#chatempty").hidden=chat.msgs.length>0;
+  $("#sugg").hidden=chat.msgs.length>0;
+  $("#msgs").innerHTML=chat.msgs.map((m,i)=>{
+    if(m.u)return `<div class="msg u">${esc(m.u)}</div>`;
+    if(m.typing)return `<div class="msg b"><span class="typing"><i></i><i></i><i></i></span></div>`;
+    if(!m.e)return `<div class="msg b none">Je ne trouve pas cette information dans les cours de la faculté. Vous pouvez poser la question à l'équipe enseignante sur le forum Moodle du cours.<div class="acts"><button class="btn sm" data-forum="${i}">Poser sur le forum</button></div></div>`;
+    const srcs=m.e.s.filter(x=>chat.scope!=="ref"||!x[1]);
+    return `<div class="msg b">${m.e.a}<div class="srcs">${srcs.map(x=>x[2]?`<span class="srcbtn" role="button" tabindex="0" data-sec="${esc(x[2])}" data-p="">${esc(x[0])} ›</span>`:`<span class="${x[1]||""}">${esc(x[0])}</span>`).join("")}</div><div class="acts"><button class="btn sm primary" data-test="${m.e.ch}">Me tester là-dessus</button></div></div>`;
+  }).join("");
+  bindCours($("#msgs"));
+  $("#msgs").querySelectorAll("[data-test]").forEach(b=>b.addEventListener("click",()=>testChapter(b.dataset.test)));
+  $("#msgs").querySelectorAll("[data-forum]").forEach(b=>b.addEventListener("click",()=>{b.disabled=true;b.textContent="Question transmise";toast("Envoyé sur le forum Moodle (démo)","L'équipe enseignante est notifiée.");}));
+}
+function ask(q){
+  q=(q||"").trim();if(!q||chat.busy)return;
+  chat.busy=true;chat.msgs.push({u:q});chat.msgs.push({typing:true});renderChat();$("#askin").value="";
+  setTimeout(()=>{chat.msgs.pop();chat.msgs.push({e:findAnswer(q)});chat.busy=false;renderChat();
+    const last=$("#msgs").lastElementChild;if(last&&last.scrollIntoView)last.scrollIntoView({behavior:"smooth",block:"nearest"});},700);
+}
+$("#sugg").innerHTML=SUGG.map(s=>`<button type="button">${esc(s)}</button>`).join("");
+$("#sugg").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>ask(b.textContent)));
+$("#askf").addEventListener("submit",e=>{e.preventDefault();ask($("#askin").value);});
+document.querySelectorAll("[data-sc]").forEach(b=>b.addEventListener("click",()=>{chat.scope=b.dataset.sc;document.querySelectorAll("[data-sc]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderChat();}));
+renderChat();
+
+/* ================= Routage ================= */
+const VIEWS=["entrainement","autrement","tuteur","validation","enseignant","base"];
+function route(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"entrainement";
+  document.querySelectorAll("[data-section]").forEach(s=>s.hidden=s.dataset.section!==v);
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.setAttribute("aria-current",a.dataset.view===v?"page":"false"));
+  if(v==="validation")renderValidation();if(v==="base")renderBase();
+  const a=document.querySelector(`nav.tabs a[data-view="${v}"]`);if(a&&a.scrollIntoView)a.scrollIntoView({block:"nearest",inline:"nearest"});}
+window.addEventListener("hashchange",()=>{route();if($("#focus").hidden)window.scrollTo(0,0);});
+
+if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+renderModes();renderFeed();renderTiles();renderDays();bindSettings();renderResources();renderQueue();renderCohort();renderPipeline();renderBase();refreshDash();route();
+})();
+</script>
+</body>
+</html>
